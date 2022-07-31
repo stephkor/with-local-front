@@ -7,7 +7,7 @@ interface LanguageConfig {
 const LOCAL_STORAGE_KEY = "langConfig";
 
 const defaultState: LanguageConfig = {
-  lang: "kr",
+  lang: "ko",
 };
 
 const getInitialState = (): LanguageConfig => {

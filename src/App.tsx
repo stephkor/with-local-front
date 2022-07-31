@@ -1,21 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
 import { SnackbarProvider } from "notistack";
-//import { ReactQueryDevtools } from "react-query/devtools";
-import { ROUTES } from './config/routes';
-import { BrowserRouter, Routes, Router, Route, Outlet, } from 'react-router-dom'
-import Dashboard from "./components/Dashboard";
+import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import AppRoutes from "./AppRoutes";
+
+const queryClient = new QueryClient({
+    defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } },
+})
 
 function App() {
   return (
       <Provider store={store}>
-      {/*<QueryClientProvider client={queryClient}>*/}
+      <QueryClientProvider client={queryClient}>
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <SnackbarProvider
@@ -28,17 +30,11 @@ function App() {
           preventDuplicate
           disableWindowBlurListener
         >
-      <BrowserRouter>
-        <Routes>
-            <Route path={"/"} element={<Dashboard><Outlet/></Dashboard>}>
-          <Route path={ROUTES.MAIN}  element={<div>메인페이지</div>} />
-            </Route>
-        </Routes>
-        </BrowserRouter>
+      <AppRoutes/>
              </SnackbarProvider>
       </ThemeProvider>
-      {/*<ReactQueryDevtools position="bottom-right" />*/}
-      {/*</QueryClientProvider>*/}
+      <ReactQueryDevtools position="bottom-right" />
+      </QueryClientProvider>
     </Provider>
   );
 }

@@ -7,7 +7,7 @@ import { theme } from "../../theme";
 
 const Topbar: FC = () => {
   return (
-    <AppBar sx={{backgroundColor: theme.palette.background.default}}>
+    <AppBar sx={{backgroundColor: theme.palette.background.default, boxShadow: "none"}}>
       <Box
         sx={{
           height: TOPBAR_HEIGHT,

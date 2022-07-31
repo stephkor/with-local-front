@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { RootState } from "src/store";
 import Box from "@mui/material/Box";
 import { TOPBAR_HEIGHT } from "src/config/layout";
 import { changeLangSetting } from "../../store/slices/languageSlice";
+import { theme } from 'src/theme'
 import Topbar from "./Topbar";
 
 interface DashboardProps {
@@ -13,7 +13,7 @@ interface DashboardProps {
 
 const Dashboard: FC<DashboardProps> = ({ children }) => {
 
-  console.log("dashboard");
+
 
   return (
     <>
@@ -22,7 +22,9 @@ const Dashboard: FC<DashboardProps> = ({ children }) => {
         sx={{
           paddingTop: `${TOPBAR_HEIGHT}px`,
           minHeight: `100vh`,
-          bgcolor: "background.default",
+          backgroundColor: theme.palette.background.default,
+          paddingLeft: "1rem",
+          paddingRight: "1rem"
         }}
       >
         {children}

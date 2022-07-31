@@ -1445,7 +1445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.10.5, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.18.9, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7, @babel/runtime@npm:^7.9.2":
   version: 7.18.9
   resolution: "@babel/runtime@npm:7.18.9"
   dependencies:
@@ -2716,10 +2716,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/match-sorter-utils@npm:^8.0.0-alpha.82":
+  version: 8.1.1
+  resolution: "@tanstack/match-sorter-utils@npm:8.1.1"
+  dependencies:
+    remove-accents: 0.4.2
+  checksum: bf1458b7ca08cf79750ebd46fddef9c9b845ef55b5b69c0f7f69d48d6cbd73dbfd98763509f655298033b93cfc92b21d54f9f13a4d631cc68ca9191913967205
+  languageName: node
+  linkType: hard
+
 "@tanstack/query-core@npm:^4.0.0-beta.1":
   version: 4.0.10
   resolution: "@tanstack/query-core@npm:4.0.10"
   checksum: 581d4506c5edbe91cdb35a2c4fe273aadb51a64ddaf73be63f92088202bda8495a909e286370357740291962149dabb5dd24fe7c048d71c29e702a1c61df5fc4
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "@tanstack/react-query-devtools@npm:4.0.10"
+  dependencies:
+    "@tanstack/match-sorter-utils": ^8.0.0-alpha.82
+    "@types/use-sync-external-store": ^0.0.3
+    use-sync-external-store: ^1.2.0
+  checksum: a337609b5576ecc6c5f044c7374500413e72b16ac11d4a7b365a7f4eb5bb99537341f72c77781846bca0f8f98c7e73a5ced0bc0dc699cbd1bc8dcdaea0b99cbc
   languageName: node
   linkType: hard
 
@@ -8584,6 +8604,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"match-sorter@npm:^4.1.0":
+  version: 4.2.1
+  resolution: "match-sorter@npm:4.2.1"
+  dependencies:
+    "@babel/runtime": ^7.10.5
+    remove-accents: 0.4.2
+  checksum: 7f3cd8f84cdb4567b7a81f66a095e418044f318f41b6c8a1640730c99e370af9e5054f5a1ed2dfa1287a23101d75a105da63e4d95e8ac2f7061a8f8b32367c7d
+  languageName: node
+  linkType: hard
+
 "mdn-data@npm:2.0.14":
   version: 2.0.14
   resolution: "mdn-data@npm:2.0.14"
@@ -10408,7 +10438,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10582,6 +10612,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-fast-compare@npm:^3.1.1":
+  version: 3.2.0
+  resolution: "react-fast-compare@npm:3.2.0"
+  checksum: 8ef272c825ae329f61633ce4ce7f15aa5b84e5214d88bc0823880236e03e985a13195befa2c7a4eda7db3b017dc7985729152d88445823f652403cf36c2b86aa
+  languageName: node
+  linkType: hard
+
+"react-helmet@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "react-helmet@npm:6.1.0"
+  dependencies:
+    object-assign: ^4.1.1
+    prop-types: ^15.7.2
+    react-fast-compare: ^3.1.1
+    react-side-effect: ^2.1.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: a4998479dab7fc1c2799eddefb1870a9d881b5f71cfdf97979a9882e42f4bb50402d55335f308f461e735e01a06f46b16cc7b4e6bcb22c7a4a6f85a753c5c106
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -10600,6 +10651,38 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
+  languageName: node
+  linkType: hard
+
+"react-query-devtools@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "react-query-devtools@npm:2.6.3"
+  dependencies:
+    match-sorter: ^4.1.0
+  peerDependencies:
+    react: ^16.6.3 || ^17.0.0
+    react-query: ^2.0.0
+  checksum: 55cd257c32af83ac33ddff32a7234922fc53dd212c8a92dbee2a5c494c08763a94f60c8f455416ee4dde8ee7d908c7762b90f11d25d86e87efff9b729a8c2cfc
+  languageName: node
+  linkType: hard
+
+"react-query@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-query@npm:4.0.0"
+  dependencies:
+    "@tanstack/query-core": ^4.0.0-beta.1
+    "@types/use-sync-external-store": ^0.0.3
+    use-sync-external-store: ^1.2.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-native: "*"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 1cd6ab5c48e597a9874bac4aaf0b8ba78d0bba56bfed97bd3a876b3eddc57e463de1c7303ff02a519f076bbf2759aa81e35d7fac178699d81b16551089cdc0a2
   languageName: node
   linkType: hard
 
@@ -10730,6 +10813,15 @@ __metadata:
   bin:
     react-scripts: bin/react-scripts.js
   checksum: 92afa2f245c7092ccc97d5609dc7a2130616262e34da7f15072d9442e2d2e1d4909a91022abd1faac1336eb17c5525a10d9bd43e1ae374c7ec941ca20addca68
+  languageName: node
+  linkType: hard
+
+"react-side-effect@npm:^2.1.0":
+  version: 2.1.2
+  resolution: "react-side-effect@npm:2.1.2"
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0 || ^18.0.0
+  checksum: c5eb1f42b464fb093bca59aaae0f1b2060373a2aaff95275b8781493628cdbbb6acdd6014e7883782c65c361f35a30f28cc515d68a1263ddb39cbbc47110be53
   languageName: node
   linkType: hard
 
@@ -10921,6 +11013,13 @@ __metadata:
   version: 0.2.7
   resolution: "relateurl@npm:0.2.7"
   checksum: 5891e792eae1dfc3da91c6fda76d6c3de0333a60aa5ad848982ebb6dccaa06e86385fb1235a1582c680a3d445d31be01c6bfc0804ebbcab5aaf53fa856fde6b6
+  languageName: node
+  linkType: hard
+
+"remove-accents@npm:0.4.2":
+  version: 0.4.2
+  resolution: "remove-accents@npm:0.4.2"
+  checksum: 84a6988555dea24115e2d1954db99509588d43fe55a1590f0b5894802776f7b488b3151c37ceb9e4f4b646f26b80b7325dcea2fae58bc3865df146e1fa606711
   languageName: node
   linkType: hard
 
@@ -12817,6 +12916,7 @@ __metadata:
     "@mui/material": ^5.9.2
     "@reduxjs/toolkit": ^1.8.3
     "@tanstack/react-query": ^4.0.10
+    "@tanstack/react-query-devtools": ^4.0.10
     "@types/node": ^16.11.46
     "@types/react": ^18.0.15
     "@types/react-dom": ^18.0.6
@@ -12827,6 +12927,9 @@ __metadata:
     notistack: ^2.0.5
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-helmet: ^6.1.0
+    react-query: ^4.0.0
+    react-query-devtools: ^2.6.3
     react-redux: ^8.0.2
     react-router-dom: ^6.3.0
     react-scripts: 5.0.1
