@@ -1,8 +1,9 @@
 import React, {FC, useState} from 'react';
 import Card from '@mui/material/Card'
 import {CardActions, CardContent, CardHeader, Icon, IconButton, Typography, Box} from "@mui/material";
-import Badge from "../Badge";
-import {ChatBubbleOutline, ChatBubbleOutlined, MonitorHeart, MonitorHeartOutlined} from "@mui/icons-material";
+import {ChatBubbleOutline, ChatBubbleOutlined, HeartBrokenOutlined} from "@mui/icons-material";
+
+import ContentBadge from './Badge'
 
 interface ContentProps {
     desc: desc;
@@ -19,15 +20,23 @@ const Content: FC<ContentProps> = ({desc, value, likeNum, commentNum, isLiked, c
     const [userLikeNum, setUserLikeNum] = useState<number>(likeNum);
     const [userCommentNum, setUserCommentNum] = useState<number>(commentNum);
 
+    console.log(desc)
+
     return (
-        <Card>
-            <CardHeader>
-                <Badge desc={desc}></Badge>
-            </CardHeader>
-            <CardContent>
+        <Card sx={{ padding: "1rem", width: "21.438rem"}}>
+        <ContentBadge desc={desc} />
+            <CardContent sx={{
+                fontFamily: "NanumSquare",
+                fontSize: "0.875rem",
+                fontWeight: "bold",
+                fontStretch: "normal",
+                fontStyle: "normal",
+                lineHeight: 1.71,
+                letterSpacing: "normal",
+                textAlign: "left"}}>
                 {value}
             </CardContent>
-            <CardActions sx={{ display: "flex", alignItems: "center", justifyContents: "space-between"}}>
+            <CardActions  sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Box>
                 <IconButton
                     color={isLiked ? "primary" : "default"}
@@ -36,7 +45,7 @@ const Content: FC<ContentProps> = ({desc, value, likeNum, commentNum, isLiked, c
                         setUserLiked(true)
                 }}>
                     <Icon>
-                        <MonitorHeartOutlined /><span>좋아요</span>
+                        <HeartBrokenOutlined /><span>좋아요</span>
                     </Icon>
                     {userLikeNum}
                 </IconButton>
@@ -47,9 +56,11 @@ const Content: FC<ContentProps> = ({desc, value, likeNum, commentNum, isLiked, c
                     {userCommentNum}
                 </IconButton>
                 </Box>
+                <Box>
                 <Typography>
                     {createdAt}
                 </Typography>
+                </Box>
             </CardActions>
         </Card>
     )

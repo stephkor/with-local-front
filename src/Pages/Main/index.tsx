@@ -5,6 +5,12 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
 import {theme} from 'src/theme'
+import {styled} from "@mui/system";
+import Content from "../../components/Content";
+
+const StyledTab = styled(Tab)({
+    fontSize: "1rem", color: theme.palette.point.browngrey, paddingRight: "1.25rem", paddingLeft: 0,  maxWidth: "7rem", minWidth: "3.625rem", textAlign: "left"
+});
 
 
 const Main: FC = () => {
@@ -22,19 +28,26 @@ const Main: FC = () => {
                         sx={{
                             padding: 0,
                             margin: 0,
+                            "& :last-child" : {
+                                paddingRight: 0,
+                                paddingLeft: 0
+                            },
+                            ".MuiTabs-indicator": {display: "none"}
 
                         }}
                         value={tab}
                         onChange={handleChange}
                         textColor="primary"
                     >
-                        <Tab value="popular" label="인기" sx={{fontSize: "1rem", color: theme.palette.point.browngrey, paddingRight: "1.25rem", paddingLeft: 0,  maxWidth: "7rem", minWidth: "3.625rem", textAlign: "left"}} />
-                        <Tab value="question" label="동네질문"sx={{fontSize: "1rem", color: theme.palette.point.browngrey,  paddingRight: "1.25rem",paddingLeft: 0,maxWidth: "7rem", minWidth: "3.625rem", textAlign: "left"}} />
-                        <Tab value="restaurant" label="동네맛집" sx={{fontSize: "1rem", color: theme.palette.point.browngrey,paddingRight: "1.25rem", paddingLeft: 0, maxWidth: "7rem", minWidth: "3.625rem", textAlign: "left"}}/>
-                        <Tab value="help" label="도움이 필요해요!" sx={{fontSize: "1rem", color: theme.palette.point.browngrey,  paddingRight: 0, paddingLeft: 0,maxWidth: "7rem", minWidth: "3.625rem", textAlign: "left"}}/>
+                        <StyledTab value="popular" label="인기"  />
+                        <StyledTab value="question" label="동네질문" />
+                        <StyledTab value="restaurant" label="동네맛집" />
+                        <StyledTab value="help" label="도움이 필요해요!" />
                     </Tabs>
                 </Box>
-
+                <Box>
+                    <Content desc={"restaurant"} value={"오늘 역삼동 처음 방문하는데 추천맛집 있을까요?"} likeNum={90} commentNum={999} isLiked={false} createdAt={"10분전"}/>
+                </Box>
         </Card>
     )
 }

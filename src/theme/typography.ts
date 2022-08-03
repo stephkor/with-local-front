@@ -29,7 +29,7 @@ declare module "@mui/material/styles/createTypography" {
 }
 
 const customTypography = createTypography(palette, {
-  fontFamily: ["NanumSquare",].join(","),
+  fontFamily: ["NanumSquare","FuturaBT-BoldCondensedItalic, Futura BdCn BT"].join(","),
   h1: {
     color: palette.text.primary,
     fontSize: "2.25rem",

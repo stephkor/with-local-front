@@ -17,18 +17,8 @@ const Topbar: FC = () => {
           padding: "12px 16px 12px 18px",
         }}
       >
-        <Box>
-          <Typography sx={{
-            fontFamily: "FuturaBdCnBT",
-            color: theme.palette.text.primary,
-            fontSize: "1.125rem",
-            fontWeight: "bold",
-            fontStyle: "italic",
-            lineHeight: 2.22,
-            textAlign: "left"
-          }}>
-            WITH LOCAL
-          </Typography>
+        <Box><img className={"logo"} src={'/images/with-local-logo.svg'} alt={"logo"} style={{ width: "5.938rem", height: "1.313rem"}}/>
+
         </Box>
       </Box>
     </AppBar>

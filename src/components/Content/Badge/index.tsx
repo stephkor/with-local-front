@@ -3,7 +3,7 @@ import type {FC} from 'react';
 import { styled } from '@mui/system';
 
 import {theme} from 'src/theme'
-import palette from "../../theme/palette";
+import palette from "../../../theme/palette";
 
 const StyledDiv = styled('div')({
     width: "2.75rem",
@@ -21,10 +21,11 @@ interface BadgeProps {
     desc: string;
 }
 
-const Badge: FC<BadgeProps> = ({ desc }) => {
+const ContentBadge: FC<BadgeProps> = ({ desc }) => {
 
     const title = desc ===  "question" ? "동네질문" : desc === "restaurant" ? "동네맛집" : "도움이 필요해요!"
 
+    console.log(title)
     return (
         <StyledDiv>{title}</StyledDiv>
     )
@@ -32,4 +33,4 @@ const Badge: FC<BadgeProps> = ({ desc }) => {
 
 
 
-export default Badge;
+export default ContentBadge;

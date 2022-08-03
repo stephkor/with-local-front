@@ -1,0 +1,22 @@
+@import url('https://db.onlinewebfonts.com/c/25e58c84029304f62c42b32734d0ab6c?family=Futura+BdCn+BT');
+
+
+/*@font-face {*/
+/*    font-family: 'FuturaBT-BoldCondensedItalic';*/
+/*src: url("https://c.webfontfree.com/c.js?f=FuturaBT-BoldCondensedItalic") format('woff');*/
+/*    font-weight: 700;*/
+/*font-style: normal;*/
+/*}*/
+
+@font-face {
+    font-family: "Futura BdCn BT";
+    src: url("https://db.onlinewebfonts.com/t/25e58c84029304f62c42b32734d0ab6c.eot");
+    src: url("https://db.onlinewebfonts.com/t/25e58c84029304f62c42b32734d0ab6c.eot?#iefix") format("embedded-opentype"), url("https://db.onlinewebfonts.com/t/25e58c84029304f62c42b32734d0ab6c.woff2") format("woff2"), url("https://db.onlinewebfonts.com/t/25e58c84029304f62c42b32734d0ab6c.woff") format("woff"), url("https://db.onlinewebfonts.com/t/25e58c84029304f62c42b32734d0ab6c.ttf") format("truetype"), url("https://db.onlinewebfonts.com/t/25e58c84029304f62c42b32734d0ab6c.svg#Futura BdCn BT") format("svg"); }
+
+
+
+#WITH_LOCAL {
+    font-family: "Futura BdCn BT", sans-serif ;
+    font-weight: 700;
+    font-style: italic;
+}
