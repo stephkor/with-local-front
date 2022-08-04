@@ -17,7 +17,7 @@ const Topbar: FC = () => {
           padding: "12px 16px 12px 18px",
         }}
       >
-        <Box><img className={"logo"} src={'/images/with-local-logo.svg'} alt={"logo"} style={{ width: "5.938rem", height: "1.313rem"}}/>
+        <Box><img className={"logo"} src={'/images/with-local-logo.png'} alt={"logo"} style={{ width: "5.938rem", height: "1.313rem"}}/>
 
         </Box>
       </Box>
