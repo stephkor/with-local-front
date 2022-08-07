@@ -5,7 +5,7 @@ declare module "@mui/material/styles/createTypography" {
   interface TypographyOptions {
     h1: Record<string, string | number>;
     nanum36pt2: Record<string, string | number>;
-    nanum24pt: Record<string, string | number>;
+    h3: Record<string, string | number>;
     nanum18pt: Record<string, string | number>;
     nanum18pt2: Record<string, string | number>;
     nanum14pt: Record<string, string | number>;
@@ -14,10 +14,11 @@ declare module "@mui/material/styles/createTypography" {
     nanum10pt2: Record<string, string | number>;
     nanum10pt3: Record<string, string | number>;
   }
+
   interface Typography {
     h1: Record<string, string | number>;
     nanum36pt2: Record<string, string | number>;
-    nanum24pt: Record<string, string | number>;
+    h3: Record<string, string | number>;
     nanum18pt: Record<string, string | number>;
     nanum18pt2: Record<string, string | number>;
     nanum14pt: Record<string, string | number>;
@@ -29,7 +30,10 @@ declare module "@mui/material/styles/createTypography" {
 }
 
 const customTypography = createTypography(palette, {
-  fontFamily: ["NanumSquare","FuturaBT-BoldCondensedItalic, Futura BdCn BT"].join(","),
+  fontFamily: [
+    "NanumSquare",
+    "FuturaBT-BoldCondensedItalic, Futura BdCn BT",
+  ].join(","),
   h1: {
     color: palette.text.primary,
     fontSize: "2.25rem",
@@ -48,7 +52,7 @@ const customTypography = createTypography(palette, {
     lineHeight: 1.39,
     letterSpacing: "normal",
   },
-  nanum24pt: {
+  h3: {
     color: palette.text.primary,
     fontSize: "1.5rem",
     fontWeight: 800,

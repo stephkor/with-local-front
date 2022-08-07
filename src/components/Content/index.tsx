@@ -1,18 +1,19 @@
 import React, { FC, useState } from "react";
 import Card from "@mui/material/Card";
 import {
-  CardActions,
-  CardContent,
-  CardHeader,
-  Icon,
-  IconButton,
-  Typography,
-  Box,
+    CardActions,
+    CardContent,
+    CardHeader,
+    Icon,
+    IconButton,
+    Typography,
+    Box, Divider, Select, MenuItem,
+    TextField
 } from "@mui/material";
 import {
-  ChatBubbleOutline,
-  ChatBubbleOutlined,
-  HeartBrokenOutlined,
+    ChatBubbleOutline,
+    ChatBubbleOutlined,
+    HeartBrokenOutlined,
 } from "@mui/icons-material";
 
 import ContentBadge from "./Badge";
@@ -34,12 +35,12 @@ const Content: FC<ContentProps> = ({
   isLiked,
   createdAt,
 }) => {
-  const [UserLiked, setUserLiked] = useState<boolean>(isLiked);
+  const [userLiked, setUserLiked] = useState<boolean>(isLiked);
   const [userLikeNum, setUserLikeNum] = useState<number>(likeNum);
   const [userCommentNum, setUserCommentNum] = useState<number>(commentNum);
 
   return (
-    <Card sx={{ padding: "1rem", width: "21.438rem" }}>
+    <Card sx={{ padding: "1rem", width: "21.438rem", paddingBottom: 1, mt: 1 }}>
       <ContentBadge desc={desc} />
       <CardContent
         sx={{
@@ -55,33 +56,32 @@ const Content: FC<ContentProps> = ({
       >
         {value}
       </CardContent>
+        <Divider/>
       <CardActions
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          paddingBottom: 0
         }}
       >
         <Box>
           <IconButton
             color={isLiked ? "primary" : "default"}
             onClick={(e) => {
-              setUserLikeNum(likeNum + 1);
-              setUserLiked(true);
+              setUserLikeNum(userLiked? likeNum: likeNum++);
+              setUserLiked(!userLiked);
             }}
-          >
-            <Icon>
-              <HeartBrokenOutlined />
-              <span>좋아요</span>
-            </Icon>
-            {userLikeNum}
+        >
+              <img src={ userLiked ? "/images/icons/heart_fill.png" : "/images/icons/heart.png"} alt={"like icon"} />
+              <Typography>{userLikeNum}</Typography>
           </IconButton>
           <IconButton>
             <Icon>
-              <ChatBubbleOutlined />
-              <span>댓글</span>
+                <img src={"/images/icons/comment.png" } alt={"comment icon"} />
+                <Typography>댓글</Typography>
             </Icon>
-            {userCommentNum}
+              <Typography>{userCommentNum}</Typography>
           </IconButton>
         </Box>
         <Box>

@@ -11,7 +11,7 @@ const AppRoutes: FC = () => {
     <BrowserRouter>
         <Routes>
             <Route path={"/"} element={<Dashboard><Outlet/></Dashboard>}>
-                <Route path={ROUTES.MAIN}  element={<Main />} />
+                <Route  path={ROUTES.MAIN}  element={<Main />} />
             </Route>
         </Routes>
     </BrowserRouter>
