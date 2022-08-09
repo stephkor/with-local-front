@@ -4,7 +4,6 @@ import tokenManager from "../utils/TokenManager";
 import jwt_decode from "jwt-decode";
 import { logout } from "../store/slices/userSlice";
 import { store } from "../store";
-import { AxiosResponse } from "axios";
 
 const apiBaseUrl = API_BASE_URL;
 export const login = async (id: OauthParmas): Promise<void> => {

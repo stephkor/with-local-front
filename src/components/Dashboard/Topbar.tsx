@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 
-import { AppBar, Typography } from "@mui/material";
+import { AppBar } from "@mui/material";
 import { TOPBAR_HEIGHT } from "../../config/layout";
 import Box from "@mui/material/Box";
 import { theme } from "../../theme";
-import { Search, SearchOutlined } from "@mui/icons-material";
+import { SearchOutlined } from "@mui/icons-material";
 
 const Topbar: FC = () => {
   return (

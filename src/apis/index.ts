@@ -1,18 +1,15 @@
 import axios, {
-  Axios,
   AxiosError,
   AxiosRequestConfig,
   AxiosRequestHeaders,
   AxiosResponse,
 } from "axios";
-import { API_BASE_URL } from "../config/app";
+
 import Qs from "qs";
 import { store } from "../store";
 import { logout } from "../store/slices/userSlice";
 import tokenManager from "../utils/TokenManager";
 import ERROR_MESSAGES from "../config/errorMessages";
-
-let axiosInterceptor;
 
 export const request = (
   method: "get" | "post" | "put" | "delete",
@@ -64,8 +61,7 @@ export const request = (
   }
 };
 
-// eslint-disable-next-line prefer-const
-axiosInterceptor = axios.interceptors.response.use((res) => res, handleError);
+axios.interceptors.response.use((res) => res, handleError);
 
 // 공용 에러처리
 export async function handleError(error: AxiosError) {
@@ -74,7 +70,7 @@ export async function handleError(error: AxiosError) {
   }
 
   if (error.response) {
-    const { status, data } = error.response;
+    const { status } = error.response;
 
     switch (status) {
       case 400:

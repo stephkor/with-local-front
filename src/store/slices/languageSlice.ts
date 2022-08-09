@@ -36,7 +36,10 @@ const langConfigSlice = createSlice({
   name: "langSetting",
   initialState,
   reducers: {
-    changeLangSetting: (state, action: PayloadAction<LanguageConfig>) => {
+    changeLangSetting: (
+      state: typeof initialState,
+      action: PayloadAction<LanguageConfig>
+    ) => {
       const nextState = { ...state, ...action.payload };
 
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(nextState));

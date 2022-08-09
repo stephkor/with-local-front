@@ -1,5 +1,4 @@
 import createPalette from "@mui/material/styles/createPalette";
-import { colors } from "@mui/material";
 
 declare module "@mui/material/styles/createPalette" {
   interface TypeText {

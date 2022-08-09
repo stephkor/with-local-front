@@ -1,20 +1,15 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 
 import Box from "@mui/material/Box";
 import { TOPBAR_HEIGHT } from "src/config/layout";
-import { changeLangSetting } from "../../store/slices/languageSlice";
-import { theme } from 'src/theme'
+import { theme } from "src/theme";
 import Topbar from "./Topbar";
 
 interface DashboardProps {
-  children: React.ReactNode; 
-};
-
+  children: React.ReactNode;
+}
 
 const Dashboard: FC<DashboardProps> = ({ children }) => {
-
-
-
   return (
     <>
       <Topbar />
@@ -24,7 +19,7 @@ const Dashboard: FC<DashboardProps> = ({ children }) => {
           minHeight: `100vh`,
           backgroundColor: theme.palette.background.default,
           paddingLeft: "1rem",
-          paddingRight: "1rem"
+          paddingRight: "1rem",
         }}
       >
         {children}
