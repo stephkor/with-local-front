@@ -50,6 +50,9 @@ const Content: FC<ContentProps> = ({
           lineHeight: 1.71,
           letterSpacing: "normal",
           textAlign: "left",
+          p: 0,
+          width: "auto",
+          height: "4.813rem",
         }}
       >
         {value}
@@ -60,30 +63,30 @@ const Content: FC<ContentProps> = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingBottom: 0,
+          p: 0,
+          pt: 0.5,
         }}
       >
-        <Box>
+        <Box sx={{ p: 0 }}>
           <IconButton
+            size={"small"}
             color={isLiked ? "primary" : "default"}
             onClick={() => {
-              setUserLikeNum(userLiked ? likeNum : likeNum++);
+              setUserLikeNum(userLiked ? likeNum : ++likeNum);
               setUserLiked(!userLiked);
             }}
           >
             <img
               src={
-                userLiked
-                  ? "/images/icons/heart_fill.png"
-                  : "/images/icons/heart.png"
+                userLiked ? "/images/IC_heart_fill.svg" : "/images/IC_heart.svg"
               }
               alt={"like icon"}
             />
             <Typography>{userLikeNum}</Typography>
           </IconButton>
-          <IconButton>
+          <IconButton size={"small"}>
             <Icon>
-              <img src={"/images/icons/comment.png"} alt={"comment icon"} />
+              <img src={"/images/IC_comment_H18.svg"} alt={"comment icon"} />
               <Typography>댓글</Typography>
             </Icon>
             <Typography>{userCommentNum}</Typography>

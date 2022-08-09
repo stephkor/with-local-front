@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import { theme } from "src/theme";
 import { styled } from "@mui/system";
 import Content from "../../components/Content";
-import { MenuItem, TextField, Typography } from "@mui/material";
+import { MenuItem, TextField, Typography, IconButton } from "@mui/material";
 
 const StyledTab = styled(Tab)({
   fontSize: "1rem",
@@ -55,12 +55,12 @@ const Main: FC = () => {
         </Tabs>
       </Box>
       <Box>
-        <Box>
-          {/*<TextField select value={"yeoksam"} variant={"standard"}>*/}
-          {/*    <MenuItem value={"yeoksam"} >*/}
-          {/*        <Typography sx={{ fontSize: "1.5rem", fontWeight: 700}}>역삼동</Typography>*/}
-          {/*    </MenuItem>*/}
-          {/*</TextField>*/}
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          p={1}
+        >
           <TextField
             select
             value={"yeoksam"}
@@ -78,6 +78,9 @@ const Main: FC = () => {
               <Typography variant={"h3"}>역삼동</Typography>
             </MenuItem>
           </TextField>
+          <IconButton size={"small"}>
+            <Box component={"img"} src={"/images/Bottons_Posting_H27.svg"} />
+          </IconButton>
         </Box>
         <Content
           desc={"restaurant"}

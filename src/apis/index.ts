@@ -14,8 +14,8 @@ import ERROR_MESSAGES from "../config/errorMessages";
 export const request = (
   method: "get" | "post" | "put" | "delete",
   baseURL: string,
-  queryParams?: object,
-  body?: object,
+  queryParams?: any,
+  body?: any,
   headers?: AxiosRequestHeaders
 ): Promise<AxiosResponse> => {
   const config: AxiosRequestConfig = {};

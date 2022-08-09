@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="69" height="24" viewBox="0 0 69 24">
+    <g data-name="Rectangle 8150" style="stroke:#e2e2e2;fill:none">
+        <path style="stroke:none" d="M0 0h69v24H0z"/>
+        <path style="fill:none" d="M.5.5h68v23H.5z"/>
+    </g>
+    <g data-name="Group 50606">
+        <text transform="translate(27.5 16)" style="fill:#222;font-size:12px;font-family:NanumSquareR,NanumSquare"><tspan x="0" y="0">글쓰기</tspan></text>
+        <g data-name="Group 50605">
+            <path data-name="Path 18997" d="M11750.176 2934.616h3.1v7.448l-1.619 2.465-1.484-2.465z" transform="rotate(29 11546.301 -21211.58)" style="stroke:#222;fill:none"/>
+            <path data-name="Line 1795" transform="translate(8 16.536)" style="stroke:#222;fill:none" d="M0 0h12"/>
+        </g>
+    </g>
+</svg>

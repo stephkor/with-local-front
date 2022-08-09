@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path data-name="Rectangle 4591" style="fill:none" d="M0 0h24v24H0z"/>
+    <circle data-name="Ellipse 94" cx="10" cy="10" r="10" transform="translate(2 2)" style="stroke:#222;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none"/>
+    <path data-name="Line 227" transform="translate(2 12)" style="stroke:#222;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none" d="M20 0H0"/>
+    <path data-name="Line 225" transform="translate(12 2)" style="stroke:#222;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none" d="M0 0v20"/>
+    <ellipse data-name="Ellipse 95" cx="4.545" cy="10" rx="4.545" ry="10" transform="translate(7.453 2)" style="stroke:#222;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none"/>
+    <path data-name="Line 226" transform="translate(3.094 7.455)" style="stroke:#222;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none" d="M17.813 0H0"/>
+    <path data-name="Line 228" transform="translate(3.094 16.545)" style="stroke:#222;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;fill:none" d="M17.813 0H0"/>
+</svg>
