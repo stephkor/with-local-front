@@ -9,7 +9,7 @@ declare module "@mui/material/styles/createTypography" {
     nanum18pt: Record<string, string | number>;
     nanum18pt2: Record<string, string | number>;
     nanum14pt: Record<string, string | number>;
-    nanum12pt: Record<string, string | number>;
+    body3: Record<string, string | number>;
     nanum10pt: Record<string, string | number>;
     nanum10pt2: Record<string, string | number>;
     nanum10pt3: Record<string, string | number>;
@@ -22,7 +22,7 @@ declare module "@mui/material/styles/createTypography" {
     nanum18pt: Record<string, string | number>;
     nanum18pt2: Record<string, string | number>;
     nanum14pt: Record<string, string | number>;
-    nanum12pt: Record<string, string | number>;
+    body3: Record<string, string | number>;
     nanum10pt: Record<string, string | number>;
     nanum10pt2: Record<string, string | number>;
     nanum10pt3: Record<string, string | number>;
@@ -88,7 +88,7 @@ const customTypography = createTypography(palette, {
     lineHeight: 1.71,
     letterSpacing: "normal",
   },
-  nanum12pt: {
+  body3: {
     color: palette.text.primary,
     fontSize: "0.75rem",
     fontWeight: "bold",

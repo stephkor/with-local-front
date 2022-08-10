@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, SyntheticEvent } from "react";
 import Card from "@mui/material/Card";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,6 +8,7 @@ import { theme } from "src/theme";
 import { styled } from "@mui/system";
 import Content from "../../components/Content";
 import { MenuItem, TextField, Typography, IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const StyledTab = styled(Tab)({
   fontSize: "1rem",
@@ -21,9 +22,15 @@ const StyledTab = styled(Tab)({
 
 const Main: FC = () => {
   const [tab, setTab] = React.useState("popular");
+  const navigate = useNavigate();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
+  };
+
+  const onClickWriting = (e: SyntheticEvent) => {
+    e.preventDefault();
+    navigate("/writing");
   };
 
   return (
@@ -31,9 +38,12 @@ const Main: FC = () => {
       sx={{
         backgroundColor: theme.palette.background.default,
         boxShadow: "none",
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
+        height: "100vh",
       }}
     >
-      <Box sx={{ width: "21.438rem" }}>
+      <Box sx={{ width: "21.438rem", bg: theme.palette.background.default }}>
         <Tabs
           sx={{
             padding: 0,
@@ -78,7 +88,11 @@ const Main: FC = () => {
               <Typography variant={"h3"}>역삼동</Typography>
             </MenuItem>
           </TextField>
-          <IconButton size={"small"}>
+          <IconButton
+            size={"small"}
+            onClick={onClickWriting}
+            sx={{ bg: "#ffffff" }}
+          >
             <Box component={"img"} src={"/images/Bottons_Posting_H27.svg"} />
           </IconButton>
         </Box>

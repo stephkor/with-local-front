@@ -17,9 +17,6 @@ const Dashboard: FC<DashboardProps> = ({ children }) => {
         sx={{
           paddingTop: `${TOPBAR_HEIGHT}px`,
           minHeight: `100vh`,
-          backgroundColor: theme.palette.background.default,
-          paddingLeft: "1rem",
-          paddingRight: "1rem",
         }}
       >
         {children}
