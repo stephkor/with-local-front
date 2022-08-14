@@ -21,15 +21,7 @@ interface BadgeProps {
 }
 
 const ContentBadge: FC<BadgeProps> = ({ desc }) => {
-  const title =
-    desc === "question"
-      ? "동네질문"
-      : desc === "restaurant"
-      ? "동네맛집"
-      : "도움이 필요해요!";
-
-  console.log(title);
-  return <StyledDiv>{title}</StyledDiv>;
+  return <StyledDiv>{desc}</StyledDiv>;
 };
 
 export default ContentBadge;

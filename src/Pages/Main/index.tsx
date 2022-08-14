@@ -1,4 +1,10 @@
-import React, { FC, SyntheticEvent } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import Card from "@mui/material/Card";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -9,29 +15,73 @@ import { styled } from "@mui/system";
 import Content from "../../components/Content";
 import { MenuItem, TextField, Typography, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { getGuAddress } from "../../apis/addressApis";
+import { setSelectedLocation } from "../../store/slices/locationSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { getBoardList, getTabs } from "../../apis/boardApis";
 
 const StyledTab = styled(Tab)({
-  fontSize: "1rem",
+  fontSize: "0.9rem",
   color: theme.palette.point.browngrey,
   paddingRight: "1.25rem",
   paddingLeft: 0,
-  maxWidth: "7rem",
-  minWidth: "3.625rem",
+  maxWidth: "8rem",
+  minWidth: "3.725rem",
   textAlign: "left",
 });
 
 const Main: FC = () => {
-  const [tab, setTab] = React.useState("popular");
+  const dispatch = useDispatch();
+  const { lang } = useSelector((state: RootState) => state.lang);
   const navigate = useNavigate();
+  const [tabList, setTabList] = useState([{ categoryId: 1, text: "동네맛집" }]);
+  const [tab, setTab] = React.useState({ categoryId: 1, text: "동네맛집" });
+  const [boardList, setBoardList] = useState([]);
+  const [guList, setGuList] = useState([]);
+  const [currentGu, setCurrentGu] = useState("");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setTab(newValue);
+  const handleCurrentGu = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setCurrentGu(e.target.value);
+    dispatch(setSelectedLocation(e.target.value));
   };
 
   const onClickWriting = (e: SyntheticEvent) => {
     e.preventDefault();
     navigate("/writing");
   };
+
+  useEffect(() => {
+    const requestData = async () => {
+      try {
+        const res = await getGuAddress(1);
+        const { data } = res;
+        setGuList(data.data);
+        dispatch(setSelectedLocation(data.data[0].gu));
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    const returnTabs = async () => {
+      try {
+        const res = await getTabs(lang);
+        setTabList(res?.data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    const requestList = async () => {
+      try {
+        const res = await getBoardList(lang, tab.categoryId);
+        setBoardList(res?.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    returnTabs();
+    requestData();
+    requestList();
+  }, [lang, tab.categoryId]);
 
   return (
     <Card
@@ -41,9 +91,17 @@ const Main: FC = () => {
         paddingLeft: "1rem",
         paddingRight: "1rem",
         height: "100vh",
+        overflow: "scroll",
+        pb: 3,
       }}
     >
-      <Box sx={{ width: "21.438rem", bg: theme.palette.background.default }}>
+      <Box
+        sx={{
+          width: "21.438rem",
+          bg: theme.palette.background.default,
+          overflowY: "scroll",
+        }}
+      >
         <Tabs
           sx={{
             padding: 0,
@@ -54,14 +112,23 @@ const Main: FC = () => {
             },
             ".MuiTabs-indicator": { display: "none" },
           }}
-          value={tab}
-          onChange={handleChange}
+          value={tab.text}
+          onChange={(e, newValue) => {
+            setTab({
+              categoryId: parseInt((e.target as HTMLMenuElement).id),
+              text: newValue,
+            });
+          }}
           textColor="primary"
         >
-          <StyledTab value="popular" label="인기" />
-          <StyledTab value="question" label="동네질문" />
-          <StyledTab value="restaurant" label="동네맛집" />
-          <StyledTab value="help" label="도움이 필요해요!" />
+          {tabList.map((list: TabListResponse) => (
+            <StyledTab
+              id={list.categoryId.toString()}
+              key={list.categoryId}
+              value={list.text}
+              label={list.text}
+            />
+          ))}
         </Tabs>
       </Box>
       <Box>
@@ -70,40 +137,56 @@ const Main: FC = () => {
           alignItems={"center"}
           justifyContent={"space-between"}
           p={1}
+          sx={{
+            overflow: "scroll",
+          }}
         >
           <TextField
             select
-            value={"yeoksam"}
+            value={currentGu !== "" ? currentGu : "강남구"}
             variant={"standard"}
+            onChange={handleCurrentGu}
             sx={{
               borderBottom: "none",
-              "& input": { fontSize: 24, fontWeight: 700 },
+              "& p": {
+                fontStyle: theme.typography.h3,
+              },
               "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
                 {
                   borderBottom: "none",
                 },
             }}
           >
-            <MenuItem value={"yeoksam"}>
-              <Typography variant={"h3"}>역삼동</Typography>
-            </MenuItem>
+            {guList.map((list: guListResponse) => (
+              <MenuItem key={list.gu} value={list?.gu}>
+                <Typography>{list?.gu}</Typography>
+              </MenuItem>
+            ))}
           </TextField>
           <IconButton
             size={"small"}
             onClick={onClickWriting}
             sx={{ bg: "#ffffff" }}
           >
-            <Box component={"img"} src={"/images/Bottons_Posting_H27.svg"} />
+            <Box
+              component={"img"}
+              src={"/images/Bottons_Posting_H27.png"}
+              sx={{ width: "4.313rem", height: "1.5rem" }}
+            />
           </IconButton>
         </Box>
-        <Content
-          desc={"restaurant"}
-          value={"오늘 역삼동 처음 방문하는데 추천맛집 있을까요?"}
-          likeNum={90}
-          commentNum={999}
-          isLiked={false}
-          createdAt={"10분전"}
-        />
+
+        {boardList.map((board: BoardResponse) => (
+          <Content
+            key={board.postId}
+            desc={board.category}
+            value={board.description}
+            likeNum={board.likeCount}
+            commentNum={board.commentCount}
+            isLiked={false}
+            createdAt={board.createdAt}
+          />
+        ))}
       </Box>
     </Card>
   );

@@ -8,7 +8,6 @@ import axios, {
 import Qs from "qs";
 import { store } from "../store";
 import { logout } from "../store/slices/userSlice";
-import tokenManager from "../utils/TokenManager";
 import ERROR_MESSAGES from "../config/errorMessages";
 
 export const request = (
@@ -35,21 +34,25 @@ export const request = (
       ...queryParams,
     };
   }
-  const accessToken =
-    tokenManager.accessToken ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQyZDI0MWVlLWU1Y2UtNDA1YS1iYTEwLWJkZDVjN2Q3ZGIxNSIsImlhdCI6MTY2MDEzMDQ3NCwiZXhwIjoxNjYwNzM1Mjc0fQ.fOmXO6n1ZOPFrOMKyPwLSE3urgjDDl2h2NvVO1FKx0g";
-  const refreshToken =
-    tokenManager.refreshToken ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQyZDI0MWVlLWU1Y2UtNDA1YS1iYTEwLWJkZDVjN2Q3ZGIxNSIsImlhdCI6MTY2MDEzMDQ3NCwiZXhwIjoxNjYyNzIyNDc0fQ.X9j0vCDxZ8P3DQPtU2sVf4iwLwDDyVmj6sjmyRQSAF4";
 
-  if (!accessToken || !refreshToken) {
-    store.dispatch(logout());
-    return Promise.reject(new Error("No Token"));
-  }
+  axios.interceptors.request.use(async (config) => {
+    //   const { accessToken, refreshToken } = tokenManager;
+    const accessToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ2ZjljZThiLTY0MTItNDJkNi1hYzk4LWE3ZDI3Y2U5YjA0ZSIsImlhdCI6MTY2MDQ2NzIyMiwiZXhwIjoxNjYxMDcyMDIyfQ.0oRApbgKQFI49gApmRZirQZFmgtWfwa585Bz_jEMSvs";
+    const refreshToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ2ZjljZThiLTY0MTItNDJkNi1hYzk4LWE3ZDI3Y2U5YjA0ZSIsImlhdCI6MTY2MDQ2NzIyMiwiZXhwIjoxNjYzMDU5MjIyfQ.bbZzF166AhIUWahL-ECxkvE6zuJQ1T3lgV-V6KRv5Sg";
 
-  if (config.headers) {
-    config.headers["Authorization"] = `Bearer ${tokenManager.accessToken}`;
-  }
+    if (!accessToken || !refreshToken) {
+      store.dispatch(logout());
+      return Promise.reject(new Error("No Token"));
+    }
+
+    if (config.headers) {
+      config.headers.authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
+  });
 
   switch (method) {
     case "get":

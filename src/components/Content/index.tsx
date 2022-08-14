@@ -11,9 +11,10 @@ import {
 } from "@mui/material";
 
 import ContentBadge from "./Badge";
+import dayjs from "dayjs";
 
 interface ContentProps {
-  desc: desc;
+  desc: string;
   value: string;
   likeNum: number;
   commentNum: number;
@@ -31,11 +32,18 @@ const Content: FC<ContentProps> = ({
 }) => {
   const [userLiked, setUserLiked] = useState<boolean>(isLiked);
   const [userLikeNum, setUserLikeNum] = useState<number>(likeNum);
-  const [userCommentNum, setUserCommentNum] = useState<number>(commentNum);
+  const userCommentNum = commentNum;
+  const now = dayjs();
 
-  if (commentNum === 0) {
-    setUserCommentNum(999);
-  }
+  const handleCreatedAt = () => {
+    const diff = dayjs(createdAt).diff(now, "minutes");
+
+    if (diff > 10) {
+      return dayjs(createdAt).format("YYYY-MM-DD hh:mm");
+    } else {
+      return `${diff} 전`;
+    }
+  };
 
   return (
     <Card sx={{ padding: "1rem", width: "21.438rem", paddingBottom: 1, mt: 1 }}>
@@ -93,7 +101,7 @@ const Content: FC<ContentProps> = ({
           </IconButton>
         </Box>
         <Box>
-          <Typography>{createdAt}</Typography>
+          <Typography>{handleCreatedAt()}</Typography>
         </Box>
       </CardActions>
     </Card>

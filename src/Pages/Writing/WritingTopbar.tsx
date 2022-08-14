@@ -11,15 +11,19 @@ import {
 import { TOPBAR_HEIGHT } from "../../config/layout";
 import Box from "@mui/material/Box";
 import { SearchOutlined } from "@mui/icons-material";
-import { useLocation } from "react-router-dom";
 import history from "history/browser";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface WritingTopbarProps {
   address?: string;
   sx?: SxProps;
 }
 
-const WritingTopbar: FC<WritingTopbarProps> = ({ address, ...sx }) => {
+const WritingTopbar: FC<WritingTopbarProps> = () => {
+  const { selectedLocation } = useSelector(
+    (state: RootState) => state.location
+  );
   const [isSearchClicked, setIsSearchClicked] = useState<boolean>(false);
 
   const onClickBack = () => {
@@ -51,7 +55,7 @@ const WritingTopbar: FC<WritingTopbarProps> = ({ address, ...sx }) => {
             />
           </IconButton>
           <Typography variant={"h6"} color={"black"} sx={{ ml: 1 }}>
-            {address || "역삼동"}
+            {selectedLocation || "역삼동"}
           </Typography>
         </Box>
         <Box>
