@@ -81,7 +81,7 @@ const Main: FC = () => {
     returnTabs();
     requestData();
     requestList();
-  }, [lang, tab.categoryId]);
+  }, [dispatch, lang, tab.categoryId]);
 
   return (
     <Card
