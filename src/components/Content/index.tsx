@@ -12,6 +12,7 @@ import {
 
 import ContentBadge from "./Badge";
 import dayjs from "dayjs";
+import { postLike } from "../../apis/boardApis";
 
 interface ContentProps {
   desc: string;
@@ -20,6 +21,7 @@ interface ContentProps {
   commentNum: number;
   isLiked: boolean;
   createdAt: string;
+  postId: number;
 }
 
 const Content: FC<ContentProps> = ({
@@ -29,6 +31,7 @@ const Content: FC<ContentProps> = ({
   commentNum,
   isLiked,
   createdAt,
+  postId,
 }) => {
   const [userLiked, setUserLiked] = useState<boolean>(isLiked);
   const [userLikeNum, setUserLikeNum] = useState<number>(likeNum);
@@ -42,6 +45,20 @@ const Content: FC<ContentProps> = ({
       return dayjs(createdAt).format("YYYY-MM-DD hh:mm");
     } else {
       return `${diff} 전`;
+    }
+  };
+
+  const onClickLike = async () => {
+    try {
+      const res = await postLike(postId);
+
+      setUserLikeNum(userLiked ? likeNum : ++likeNum);
+      setUserLiked(!userLiked);
+      if (res.status !== 201) {
+        setUserLiked(userLiked);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -79,10 +96,7 @@ const Content: FC<ContentProps> = ({
           <IconButton
             size={"small"}
             color={isLiked ? "primary" : "default"}
-            onClick={() => {
-              setUserLikeNum(userLiked ? likeNum : ++likeNum);
-              setUserLiked(!userLiked);
-            }}
+            onClick={onClickLike}
           >
             <img
               src={

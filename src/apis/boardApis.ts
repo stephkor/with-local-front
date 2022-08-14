@@ -42,3 +42,12 @@ export const getBoardList = async (lang: string, categoryId: number) => {
     throw e;
   }
 };
+
+export const postLike = async (postId: number) => {
+  try {
+    return await request("post", `${apiBaseUrl}/v1/posts/${postId}/like`);
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};

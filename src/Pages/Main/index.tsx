@@ -179,6 +179,7 @@ const Main: FC = () => {
         {boardList.map((board: BoardResponse) => (
           <Content
             key={board.postId}
+            postId={board.postId}
             desc={board.category}
             value={board.description}
             likeNum={board.likeCount}
