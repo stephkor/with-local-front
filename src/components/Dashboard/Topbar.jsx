@@ -16,7 +16,7 @@ import history from "history/browser";
 import { theme } from "../../theme";
 import { SearchOutlined } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { ROUTES } from "src/config/appConfig";
+import { Link } from "react-router-dom";
 import { logout } from "src/store/slices/userSlice";
 import { changeLangSetting } from "src/store/slices/languageSlice";
 import { useLocation } from "react-router-dom";
@@ -181,13 +181,13 @@ const Topbar = () => {
             >
               <Typography>로그인 후 커뮤니티에 참여하세요</Typography>
               <Button>
-                <a href={ROUTES.LOGIN}>LOGIN</a>
+                <Link to="/login">LOGIN</Link>
               </Button>
               <Button>
-                <a href={ROUTES.REGISTER}>REGISTER</a>
+                <Link to="/register">REGISTER</Link>
               </Button>
               <Button>
-                <a href={ROUTES.ABOUT}> 사이트 소개</a>
+                <Link to="/about"> 사이트 소개</Link>
               </Button>
             </Box>
           ) : (
@@ -199,11 +199,11 @@ const Topbar = () => {
               flexDirection={"column"}
             >
               <Button>
-                <a href={ROUTES.MYPAGE}> 마이 페이지 </a>
+                <Link to="/mypage"> 마이 페이지 </Link>
               </Button>
               <Button onClick={() => dispatch(logout())}>로그아웃</Button>
               <Button>
-                <a href={ROUTES.ABOUT}> 사이트 소개</a>
+                <Link to="/about"> 사이트 소개</Link>
               </Button>
             </Box>
           )}
