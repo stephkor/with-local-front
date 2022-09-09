@@ -44,6 +44,7 @@ export const register = async (email, password) => {
           "Authorization"
         ] = `Bearer ${response.data.data.accessToken}`;
       });
+    return res;
   } catch (e) {
     console.log(e);
 

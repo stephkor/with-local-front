@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { userSlice } from "../../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { TOPBAR_HEIGHT } from "src/config/layout";
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +43,7 @@ const Login = () => {
         setIsLoading(true);
 
         const res = await login(email, password);
+        console.log(res);
 
         dispatch(userSlice.actions.login());
         navigate("/main");

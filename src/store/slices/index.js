@@ -7,14 +7,6 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
 import localStorage from "redux-persist/es/storage";
 
 const PERSIST_CONFIG = {
