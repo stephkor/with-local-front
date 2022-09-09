@@ -35,7 +35,7 @@ const Main = () => {
   const [boardList, setBoardList] = useState([]);
   const [guList, setGuList] = useState([]);
   const [currentGu, setCurrentGu] = useState(selectedLocation);
-  const [content, setContent] = useState({});
+  // const [content, setContent] = useState({});
 
   const handleCurrentGu = (e) => {
     setCurrentGu(e.target.value);
@@ -49,8 +49,6 @@ const Main = () => {
 
   const onClickContent = (e, board) => {
     e.preventDefault();
-
-    console.log(board);
 
     dispatch(setContentInfo(board));
 

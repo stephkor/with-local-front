@@ -5,9 +5,7 @@ import {
   TextField,
   InputAdornment,
   MenuItem,
-  Menu,
-  MenuList,
-  List,
+
   Select,
 } from "@mui/material";
 import { theme } from "../../theme";
@@ -25,7 +23,6 @@ const Intro = () => {
   const { lang } = useSelector((state) => state.lang);
   const { selectedLocation } = useSelector((state) => state.location);
 
-  console.log(selectedLocation);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [guList, setGuList] = useState([]);
   const handleCurrentGu = (e) => {
@@ -33,7 +30,6 @@ const Intro = () => {
   };
 
   const handleLanguage = (e) => {
-    console.log(e.target.value);
     dispatch(changeLangSetting(e.target.value));
   };
 
@@ -47,7 +43,6 @@ const Intro = () => {
         const res = await getGuAddress(1);
         const { data } = res;
         setGuList(data.data);
-        console.log(data);
       } catch (e) {
         console.log(e);
       }

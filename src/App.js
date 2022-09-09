@@ -9,7 +9,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import "./app.css";
+import "./App.css";
 import AppRoutes from "./AppRoutes";
 
 const queryClient = new QueryClient({

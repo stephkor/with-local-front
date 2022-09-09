@@ -28,12 +28,12 @@ const Content = ({
   const [userLiked, setUserLiked] = useState(isLiked);
   const [userLikeNum, setUserLikeNum] = useState(likeNum);
   const userCommentNum = commentNum;
-  const now = dayjs();
+  // const now = dayjs();
 
   console.log(images);
 
   const handleCreatedAt = () => {
-    const diff = dayjs(createdAt).diff(now, "minutes");
+    // const diff = dayjs(createdAt).diff(now, "minutes");
     return dayjs(createdAt).format("YYYY-MM-DD hh:mm");
   };
 
@@ -53,9 +53,7 @@ const Content = ({
 
   const onClickCommentIcon = async () => {
     try {
-      const res = await getComment(postId, "ko");
-
-      console.log(res?.data?.data);
+      await getComment(postId, "ko");
     } catch (e) {
       console.log(e);
     }

@@ -68,10 +68,10 @@ const Detail = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { lang } = useSelector((state) => state.lang);
 
-  const now = dayjs();
+  // const now = dayjs();
 
   const handleCreatedAt = () => {
-    const diff = dayjs(createdAt).diff(now, "minutes");
+    //  = dayjs(createdAt).diff(now, "minutes");
     return dayjs(createdAt).format("YYYY-MM-DD hh:mm");
   };
 
@@ -133,6 +133,7 @@ const Detail = () => {
 
   useEffect(() => {
     let mounted = true;
+    console.log(mounted);
 
     const requestPost = async () => {
       try {
@@ -167,7 +168,8 @@ const Detail = () => {
     <Box
       sx={{
         backgroundColor: "#f2f3f8",
-        height: "100vh",
+        height: "100%",
+        // height: "100vh",
       }}
     >
       <Topbar address={address} />
@@ -196,7 +198,6 @@ const Detail = () => {
             width: "inherit",
             height: "23.813rem",
             display: "flex",
-
             justifyContent: "space-between",
             flexDirection: "column",
           }}

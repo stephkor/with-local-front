@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import {
   AppBar,
   Button,
-  Card,
   IconButton,
   InputAdornment,
   Menu,
@@ -39,6 +38,7 @@ const Topbar = () => {
   const onClickBack = () => {
     history.back();
   };
+  console.log(isHamburgerClicked);
 
   const { isLoggedIn } = useSelector((state) => state.user);
 
@@ -47,7 +47,6 @@ const Topbar = () => {
   }, []);
 
   const handleLanguage = (e) => {
-    console.log(e.target.value);
     dispatch(changeLangSetting(e.target.value));
     setIsLangClicked(false);
   };
@@ -62,7 +61,6 @@ const Topbar = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  console.log(location.pathname);
   const handleClose = () => {
     setAnchorEl(null);
   };

@@ -24,13 +24,14 @@ export const tabListMap = {
 const Writing = () => {
   const [isLoading, setIsLoading] = useState(false);
   const imageRef = useRef();
-  const cateogoryRef = useRef();
+
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const [image, setImage] = useState();
   const [categoryList, setCategoryList] = useState([
     { categoryId: 1, text: "동네맛집" },
   ]);
 
+  console.log(image);
   const address = useSelector((state) => state.location.selectedLocation);
 
   const { lang } = useSelector((state) => state.lang);

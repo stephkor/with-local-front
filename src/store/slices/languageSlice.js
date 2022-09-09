@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const LOCAL_STORAGE_KEY = "langConfig";
+// const LOCAL_STORAGE_KEY = "langConfig";
 
 const defaultState = {
   lang: "ko",

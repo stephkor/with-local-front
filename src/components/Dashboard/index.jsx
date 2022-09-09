@@ -8,15 +8,12 @@ import { useDispatch } from "react-redux";
 import { setReward } from "../../store/slices/userSlice";
 
 const Dashboard = ({ children }) => {
-
-
-  
   const dispatch = useDispatch();
 
   useEffect(() => {
     const requestReward = async () => {
       const res = await fetchRewardApi();
-      console.log(res?.data.data);
+
       dispatch(setReward(res?.data.data));
     };
     requestReward();
