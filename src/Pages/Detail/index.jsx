@@ -162,7 +162,7 @@ const Detail = () => {
     return () => {
       mounted = false;
     };
-  }, [postId, enqueueSnackbar, effectUpdate]);
+  }, [postId, enqueueSnackbar, effectUpdate, lang]);
 
   return (
     <Box

@@ -17,6 +17,7 @@ const Dashboard = ({ children }) => {
       dispatch(setReward(res?.data.data));
     };
     requestReward();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

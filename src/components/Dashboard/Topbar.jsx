@@ -119,6 +119,7 @@ const Topbar = () => {
           <img
             src={"/images/IC_Hamburger.svg"}
             onClick={handleHamburgerClicked}
+            alt="hamburger menu"
           />
         </Box>
       </Box>
