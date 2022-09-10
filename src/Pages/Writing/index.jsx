@@ -14,6 +14,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import ErrorModal from "src/components/ErrorModal/ErrorModal";
 import history from "history/browser";
+import ImageUploader from "src/store/slices/imageUpload";
 
 export const tabListMap = {
   동네맛집: 1,
@@ -50,6 +51,7 @@ const Writing = () => {
       const { value } = values;
       const selected = selectedCategory.categoryId;
       const title = "";
+      const files = imageRef.current;
 
       try {
         setIsLoading(true);
@@ -169,7 +171,7 @@ const Writing = () => {
           justifyContent={"space-between"}
         >
           <Typography>이미지 (15mb)이하</Typography>
-
+          {/* 
           <input
             ref={imageRef}
             type="file"
@@ -182,8 +184,9 @@ const Writing = () => {
               });
             }}
           />
-          <Button onClick={onImageUploadButtonClick}>이미지 업로드</Button>
+          <Button onClick={onImageUploadButtonClick}>이미지 업로드</Button> */}
         </Box>
+        {/* <ImageUploader /> */}
         <Box>
           <Button
             type="submit"

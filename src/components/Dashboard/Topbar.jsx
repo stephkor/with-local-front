@@ -16,7 +16,7 @@ import history from "history/browser";
 import { theme } from "../../theme";
 import { SearchOutlined } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "src/store/slices/userSlice";
 import { changeLangSetting } from "src/store/slices/languageSlice";
 import { useLocation } from "react-router-dom";
@@ -34,6 +34,7 @@ const Topbar = () => {
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const onClickBack = () => {
     history.back();
@@ -101,6 +102,7 @@ const Topbar = () => {
               className={"logo"}
               src={"/images/with-local-logo.png"}
               alt={"logo"}
+              onClick={() => navigate("/")}
               style={{ width: "5.938rem", height: "1.313rem" }}
             />
           )}

@@ -169,7 +169,6 @@ const Detail = () => {
       sx={{
         backgroundColor: "#f2f3f8",
         height: "100%",
-        // height: "100vh",
       }}
     >
       <Topbar address={address} />
@@ -179,8 +178,10 @@ const Detail = () => {
           width: "21.438rem",
           paddingBottom: 1,
           pt: 1,
+          height: "100%",
           paddingLeft: "1rem",
           paddingRight: "1rem",
+          backgroundColor: "#f2f3f8",
         }}
       >
         <ContentBadge desc={category} />
@@ -223,6 +224,7 @@ const Detail = () => {
             justifyContent: "space-between",
             p: 0,
             pt: 0.5,
+            backgroundColor: "#f2f3f8",
           }}
         >
           <Box sx={{ p: 0 }}>
@@ -254,28 +256,30 @@ const Detail = () => {
           </Box>
         </CardActions>
         <Divider />
-        <Box sx={{ height: 50 }}>
+        <Box sx={{ height: 50, backgroundColor: "#f2f3f8" }}>
           {comment &&
             comment.map((comm, i) => (
-              <Box sx={{ p: 2 }}>
-                <Typography key={i}>{comm.text}</Typography>
-                <Typography variant="caption">{comm.createdAt}</Typography>
-                <Button
-                  variant="caption"
-                  onClick={() => {
-                    setCommentId(comm.commentId);
-                    toggleReplyDrawer(true);
-                  }}
-                >
-                  {" "}
-                  reply
-                </Button>
-                {comm.replies?.length >= 1 &&
-                  comm.replies.map((repl) => (
-                    <Box sx={{ p: 2 }}>
-                      <Typography>{repl}</Typography>
-                    </Box>
-                  ))}
+              <Box sx={{ backgroundColor: "#f2f3f8", width: "100vw" }}>
+                <Box sx={{ backgroundColor: "#f2f3f8", padding: 2 }}>
+                  <Typography key={i}>{comm.text}</Typography>
+                  <Typography variant="caption">{comm.createdAt}</Typography>
+                  <Button
+                    variant="caption"
+                    onClick={() => {
+                      setCommentId(comm.commentId);
+                      toggleReplyDrawer(true);
+                    }}
+                  >
+                    {" "}
+                    reply
+                  </Button>
+                  {comm.replies?.length >= 1 &&
+                    comm.replies.map((repl) => (
+                      <Box sx={{ p: 2 }}>
+                        <Typography>{repl}</Typography>
+                      </Box>
+                    ))}
+                </Box>
               </Box>
             ))}
         </Box>
