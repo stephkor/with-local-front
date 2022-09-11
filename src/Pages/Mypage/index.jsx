@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Typography, Box, Card, Grid } from "@mui/material";
 import { getMypage } from "src/apis/authApis";
 import { useSnackbar } from "notistack";
-import _, { isEmpty } from "lodash";
-import { Link, useNavigate } from "react-router-dom";
+import _ from "lodash";
+import { Link } from "react-router-dom";
 import MypageContent from "./Content";
 import { theme } from "src/theme";
 
@@ -53,7 +53,7 @@ const Mypage = () => {
         });
       }
     })();
-  }, [lang]);
+  }, [lang, enqueueSnackbar]);
 
   return (
     <Box
