@@ -30,8 +30,6 @@ const Content = ({
   const userCommentNum = commentNum;
   // const now = dayjs();
 
-  console.log(images);
-
   const handleCreatedAt = () => {
     // const diff = dayjs(createdAt).diff(now, "minutes");
     return dayjs(createdAt).format("YYYY-MM-DD hh:mm");
@@ -60,10 +58,7 @@ const Content = ({
   };
 
   return (
-    <Card
-      sx={{ padding: "1rem", width: "21.438rem", paddingBottom: 1, mt: 1 }}
-      onClick={onClick}
-    >
+    <Card sx={{ padding: "1rem", paddingBottom: 1, mt: 1 }} onClick={onClick}>
       <ContentBadge desc={desc} />
       <CardContent
         sx={{

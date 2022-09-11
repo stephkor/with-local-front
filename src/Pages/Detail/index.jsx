@@ -5,7 +5,9 @@ import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-
+import LoginModal from "src/components/LoginModal";
+import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ContentBadge from "../../components/Content/Badge";
 import {
   CardActions,
@@ -26,6 +28,8 @@ import {
   postLike,
   postCommentReply,
   getDetail,
+  postMark,
+  postCommentLike,
 } from "../../apis/boardApis";
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -47,18 +51,27 @@ const Detail = () => {
     createdAt,
     isLiked,
     images,
+    isMarked,
   } = detail;
 
   const [open, setOpen] = React.useState(false);
-  const [openReply, setOpenReply] = useState(false);
+  const [openReply, setOpenReply] = React.useState(false);
   const [commentText, setCommentText] = useState("");
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
+    if (!isLoggedIn) {
+      setIsLoginModalOpen(true);
+    } else setOpen(newOpen);
   };
-  const toggleReplyDrawer = (newOpen) => () => {
-    setOpenReply(newOpen);
+  const onClickReply = (newOpen, id) => () => {
+    if (!isLoggedIn) {
+      setIsLoginModalOpen(true);
+    } else setOpen(newOpen);
+    setCommentId(id);
+    setOpenReply(true);
   };
+
   const drawerBleeding = 53;
   const [userLiked, setUserLiked] = useState(isLiked);
   const [userLikeNum, setUserLikeNum] = useState(likeCount);
@@ -67,12 +80,13 @@ const Detail = () => {
   const [commentId, setCommentId] = useState("");
   const { enqueueSnackbar } = useSnackbar();
   const { lang } = useSelector((state) => state.lang);
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   // const now = dayjs();
 
   const handleCreatedAt = () => {
     //  = dayjs(createdAt).diff(now, "minutes");
-    return dayjs(createdAt).format("YYYY-MM-DD hh:mm");
+    return dayjs(createdAt).format("YYYY-MM-DD");
   };
 
   const handleEffectUpdate = useCallback(() => {
@@ -131,6 +145,30 @@ const Detail = () => {
     }
   };
 
+  const onClickCommentLike = async (postId, commentId) => {
+    try {
+      await postCommentLike(postId, commentId);
+      setEffectUpdate((effectUpdate) => !effectUpdate);
+      setCommentId("");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onClickMark = async () => {
+    try {
+      await postMark(postId);
+
+      setEffectUpdate((effectUpdate) => !effectUpdate);
+      enqueueSnackbar("글이 저장되었습니다.", {
+        varaint: "success",
+        autoHideDuration: 2000,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     let mounted = true;
     console.log(mounted);
@@ -167,21 +205,14 @@ const Detail = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#f2f3f8",
         height: "100%",
+        backgroundColor: "#f2f3f8",
       }}
     >
       <Topbar address={address} />
-
       <Box
         sx={{
-          width: "21.438rem",
-          paddingBottom: 1,
-          pt: 1,
-          height: "100%",
-          paddingLeft: "1rem",
-          paddingRight: "1rem",
-          backgroundColor: "#f2f3f8",
+          padding: 3,
         }}
       >
         <ContentBadge desc={category} />
@@ -196,8 +227,7 @@ const Detail = () => {
             letterSpacing: "normal",
             textAlign: "left",
             p: 0,
-            width: "inherit",
-            height: "23.813rem",
+            height: 300,
             display: "flex",
             justifyContent: "space-between",
             flexDirection: "column",
@@ -224,7 +254,6 @@ const Detail = () => {
             justifyContent: "space-between",
             p: 0,
             pt: 0.5,
-            backgroundColor: "#f2f3f8",
           }}
         >
           <Box sx={{ p: 0 }}>
@@ -251,32 +280,60 @@ const Detail = () => {
               <Typography>{userCommentNum}</Typography>
             </IconButton>
           </Box>
-          <Box>
+          <Box display="flex" alignItems="center">
             <Typography>{handleCreatedAt()}</Typography>
+            <IconButton onClick={onClickMark}>
+              <BookmarkIcon color={isMarked ? "primary" : "disabled"} />
+              <Typography>저장하기</Typography>
+            </IconButton>
           </Box>
         </CardActions>
         <Divider />
-        <Box sx={{ height: 50, backgroundColor: "#f2f3f8" }}>
+        <Box>
           {comment &&
             comment.map((comm, i) => (
-              <Box sx={{ backgroundColor: "#f2f3f8", width: "100vw" }}>
-                <Box sx={{ backgroundColor: "#f2f3f8", padding: 2 }}>
+              <Box sx={{ width: "100vw" }}>
+                <Box sx={{ padding: 2 }}>
                   <Typography key={i}>{comm.text}</Typography>
                   <Typography variant="caption">{comm.createdAt}</Typography>
-                  <Button
-                    variant="caption"
-                    onClick={() => {
-                      setCommentId(comm.commentId);
-                      toggleReplyDrawer(true);
-                    }}
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent={"space-between"}
+                    pr={3}
                   >
-                    {" "}
-                    reply
-                  </Button>
+                    <Button
+                      variant="caption"
+                      onClick={onClickReply(true, comm.commentId)}
+                    >
+                      reply
+                    </Button>
+                    <IconButton
+                      size={"small"}
+                      onClick={() => {
+                        onClickCommentLike(postId, comm.commentId);
+                      }}
+                    >
+                      <img
+                        src={
+                          comm.isLiked
+                            ? "/images/IC_heart_fill.svg"
+                            : "/images/IC_heart.svg"
+                        }
+                        alt={"like icon"}
+                      />
+                    </IconButton>
+                  </Box>
                   {comm.replies?.length >= 1 &&
                     comm.replies.map((repl) => (
-                      <Box sx={{ p: 2 }}>
-                        <Typography>{repl}</Typography>
+                      <Box
+                        sx={{ pl: 2, display: "flex", alignItems: "center" }}
+                      >
+                        <SubdirectoryArrowRightIcon fontSize="small" />
+                        <Typography pr={1}>{repl.text}</Typography>
+                        <Typography variant="caption">
+                          {repl.createdAt}
+                        </Typography>
                       </Box>
                     ))}
                 </Box>
@@ -284,7 +341,7 @@ const Detail = () => {
             ))}
         </Box>
         <div>
-          {
+          {open && (
             <SwipeableDrawer
               anchor="bottom"
               open={open}
@@ -328,65 +385,26 @@ const Detail = () => {
               <Button
                 variant="contained"
                 onClick={() => {
-                  handleSubmit();
+                  if (openReply) {
+                    handleReplySubmit();
+                  } else {
+                    handleSubmit();
+                  }
                   toggleDrawer(false);
                 }}
               >
-                {" "}
                 댓글 쓰기
               </Button>
             </SwipeableDrawer>
-          }
-        </div>
-        <div>
-          {
-            <SwipeableDrawer
-              anchor="bottom"
-              open={openReply}
-              onClose={toggleReplyDrawer(false)}
-              onOpen={toggleReplyDrawer(true)}
-              swipeAreaWidth={drawerBleeding}
-              disableSwipeToOpen={false}
-              ModalProps={{
-                keepMounted: true,
-              }}
-            >
-              <StyledBox
-                sx={{
-                  position: "absolute",
-                  top: -drawerBleeding,
-                  borderTopLeftRadius: 8,
-                  borderTopRightRadius: 8,
-                  visibility: "visible",
-                  right: 0,
-                  left: 0,
-                }}
-              ></StyledBox>
-              <StyledBox
-                sx={{
-                  px: 2,
-                  pb: 2,
-                  pt: 2,
-                  height: 140,
-                  overflow: "auto",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <TextField
-                  multiline
-                  rows={4}
-                  placeholder="타인을 존중하는 말 한마디가 상대방에게 큰 힘이 됩니다!"
-                  onChange={(e) => setCommentText(e.target.value)}
-                />
-              </StyledBox>
-              <Button variant="contained" onClick={handleReplySubmit}>
-                댓글 쓰기
-              </Button>
-            </SwipeableDrawer>
-          }
+          )}
         </div>
       </Box>
+      {isLoginModalOpen && (
+        <LoginModal
+          open={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
     </Box>
   );
 };

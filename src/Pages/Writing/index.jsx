@@ -14,7 +14,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import ErrorModal from "src/components/ErrorModal/ErrorModal";
 import history from "history/browser";
-import ImageUploader from "src/store/slices/imageUpload";
 
 export const tabListMap = {
   동네맛집: 1,
@@ -25,19 +24,14 @@ export const tabListMap = {
 const Writing = () => {
   const [isLoading, setIsLoading] = useState(false);
   const imageRef = useRef();
-
+  const [images, setImages] = useState();
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
-  const [image, setImage] = useState();
+  const address = useSelector((state) => state.location.selectedLocation);
+  const { lang } = useSelector((state) => state.lang);
+  const [selectedCategory, setSelectedCategory] = useState({});
   const [categoryList, setCategoryList] = useState([
     { categoryId: 1, text: "동네맛집" },
   ]);
-
-  console.log(image);
-  const address = useSelector((state) => state.location.selectedLocation);
-
-  const { lang } = useSelector((state) => state.lang);
-
-  const [selectedCategory, setSelectedCategory] = useState({});
 
   const formik = useFormik({
     initialValues: {
@@ -47,11 +41,18 @@ const Writing = () => {
     validationSchema: yup.object({
       value: yup.string().min(10, "10글자 이상 입력해 주세요").required(),
     }),
+
     onSubmit: async (values) => {
       const { value } = values;
       const selected = selectedCategory.categoryId;
       const title = "";
-      const files = imageRef.current;
+      let formData = new FormData();
+      for (let i = 0; i < images.length; i++) {
+        formData.append("files[]", images[i]);
+      }
+      for (let value of formData.values()) {
+        console.log(value);
+      }
 
       try {
         setIsLoading(true);
@@ -59,7 +60,7 @@ const Writing = () => {
           title: title,
           description: value,
           categoryId: selected,
-          files: "",
+          files: formData,
         });
         history.back();
       } catch (e) {
@@ -105,6 +106,13 @@ const Writing = () => {
   const onImageUploadButtonClick = (e) => {
     e.preventDefault();
     imageRef.current.click();
+  };
+
+  const handleImageUpload = (e) => {
+    e.preventDefault();
+
+    let files = e.target.files; // Form의 input을 들고온다.
+    setImages(files);
   };
 
   return (
@@ -171,22 +179,17 @@ const Writing = () => {
           justifyContent={"space-between"}
         >
           <Typography>이미지 (15mb)이하</Typography>
-          {/* 
+
           <input
             ref={imageRef}
             type="file"
             accept={"image/*"}
+            multiple
             hidden
-            onChange={({ target }) => {
-              setImage({
-                file: target?.files[0],
-                path: target?.value,
-              });
-            }}
+            onChange={(e) => handleImageUpload(e)}
           />
-          <Button onClick={onImageUploadButtonClick}>이미지 업로드</Button> */}
+          <Button onClick={onImageUploadButtonClick}>이미지 업로드</Button>
         </Box>
-        {/* <ImageUploader /> */}
         <Box>
           <Button
             type="submit"

@@ -94,6 +94,18 @@ export const postComment = async (postId, lang, comment) => {
   }
 };
 
+export const postCommentLike = async (postId, commentId) => {
+  try {
+    return await request(
+      "post",
+      `${apiBaseUrl}/v1/posts/${postId}/comments/${commentId}/like`
+    );
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+};
+
 export const getDetail = async (postId, lang) => {
   try {
     return await request("get", `${apiBaseUrl}/v1/posts/${postId}`, {

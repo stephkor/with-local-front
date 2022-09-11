@@ -67,7 +67,7 @@ const Login = () => {
   return (
     <Box sx={{ padding: 3 }}>
       <Box sx={{ textAlign: "center", paddingBottom: 3 }}>
-        <Typography variant="h5">로그인</Typography>
+        <Typography variant="h5">로그인 / Login</Typography>
       </Box>
       <form onSubmit={formik.handleSubmit} noValidate>
         <Box
@@ -85,7 +85,7 @@ const Login = () => {
             type="email"
             label="아이디"
             autoComplete="email"
-            autoFocus
+            sx={{ paddingBottom: 2 }}
             error={!!(formik.touched.email && formik.errors.email)}
             helperText={
               formik.touched.email && formik.errors.email
@@ -104,7 +104,7 @@ const Login = () => {
             name="password"
             type="password"
             label="비밀번호"
-            autoComplete="current-password"
+            sx={{ color: "black" }}
             error={!!(formik.touched.password && formik.errors.password)}
             helperText={
               formik.touched.password && formik.errors.password
