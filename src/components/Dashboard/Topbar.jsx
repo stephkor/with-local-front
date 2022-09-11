@@ -8,8 +8,8 @@ import {
   TextField,
   Typography,
   MenuItem,
-  Select,
 } from "@mui/material";
+
 import { TOPBAR_HEIGHT } from "../../config/layout";
 import Box from "@mui/material/Box";
 import history from "history/browser";
@@ -30,6 +30,7 @@ const LangMap = [
 const Topbar = () => {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [isLangClicked, setIsLangClicked] = useState(false);
+  console.log(isLangClicked, isHamburgerClicked);
   const { selectedLocation } = useSelector((state) => state.location);
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false);
   const dispatch = useDispatch();
@@ -39,17 +40,13 @@ const Topbar = () => {
   const onClickBack = () => {
     history.back();
   };
-  console.log(isHamburgerClicked);
 
   const { isLoggedIn } = useSelector((state) => state.user);
 
-  const handleLangCLick = useCallback((e) => {
-    setIsLangClicked(true);
-  }, []);
-
-  const handleLanguage = (e) => {
-    dispatch(changeLangSetting(e.target.value));
+  const handleLanguage = (newValue) => {
+    dispatch(changeLangSetting(newValue));
     setIsLangClicked(false);
+    handleLangClose();
   };
   const handleHamburgerClicked = useCallback((e) => {
     setIsHamburgerClicked((isHamburgerClicked) => !isHamburgerClicked);
@@ -57,13 +54,21 @@ const Topbar = () => {
   }, []);
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorLangEl, setAnchorLangEl] = useState(null);
   const open = Boolean(anchorEl);
+  const langOpen = Boolean(anchorLangEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleLangClick = (event) => {
+    setAnchorLangEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLangClose = () => {
+    setAnchorLangEl(null);
   };
 
   return (
@@ -71,14 +76,17 @@ const Topbar = () => {
       sx={{
         backgroundColor: theme.palette.background.default,
         boxShadow: "none",
+        width: "100vw",
       }}
     >
       <Box
         sx={{
           height: TOPBAR_HEIGHT,
+
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "12px 16px 12px 18px",
+          paddingLeft: 2,
+          paddingRight: 3,
           display: isSearchClicked ? "none" : "flex",
         }}
       >
@@ -112,7 +120,7 @@ const Topbar = () => {
             component={"img"}
             src={"/images/Location_H24.svg"}
             sx={{ mr: "0.875rem" }}
-            onClick={handleLangCLick}
+            onClick={(e) => handleLangClick(e)}
           />
           <SearchOutlined
             sx={{ color: "black", mr: "0.875rem" }}
@@ -160,17 +168,15 @@ const Topbar = () => {
           />
         </Box>
       )}
-      {isLangClicked && (
-        <Select
-          open={isLangClicked}
-          onChange={handleLanguage}
-          sx={{ display: "none" }}
-        >
-          {LangMap.map((el) => (
-            <MenuItem value={el.value}>{el.title}</MenuItem>
-          ))}
-        </Select>
-      )}
+
+      <Menu open={langOpen} onClose={handleLangClose} anchorEl={anchorLangEl}>
+        {LangMap.map((el) => (
+          <MenuItem value={el.value} onClick={() => handleLanguage(el.value)}>
+            {el.title}
+          </MenuItem>
+        ))}
+      </Menu>
+
       <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
         <Box>
           {!isLoggedIn ? (

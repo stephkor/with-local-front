@@ -5,7 +5,6 @@ import {
   TextField,
   InputAdornment,
   MenuItem,
-
   Select,
 } from "@mui/material";
 import { theme } from "../../theme";
@@ -24,6 +23,8 @@ const Intro = () => {
   const { selectedLocation } = useSelector((state) => state.location);
 
   const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  console.log(isLangOpen, setIsLangOpen);
   const [guList, setGuList] = useState([]);
   const handleCurrentGu = (e) => {
     dispatch(setSelectedLocation(e.target.value));
@@ -32,10 +33,6 @@ const Intro = () => {
   const handleLanguage = (e) => {
     dispatch(changeLangSetting(e.target.value));
   };
-
-  if (selectedLocation && lang) {
-    navigate("/main");
-  }
 
   useEffect(() => {
     const requestData = async () => {
@@ -50,6 +47,10 @@ const Intro = () => {
 
     requestData();
   }, [dispatch]);
+
+  if (selectedLocation && lang) {
+    navigate("/main");
+  }
 
   return (
     <Box
@@ -125,6 +126,7 @@ const Intro = () => {
               variant="outlined"
               value={selectedLocation}
               onChange={handleCurrentGu}
+              sx={{ width: "80%", borderRadius: 40, backgroundColor: "white" }}
             >
               {guList.map((list) => (
                 <MenuItem key={list.gu} value={list?.gu}>
@@ -135,11 +137,11 @@ const Intro = () => {
           )}
           {selectedLocation && (
             <Select
+              sx={{ width: "80%", borderRadius: 40, backgroundColor: "white" }}
               onChange={handleLanguage}
               margin="dense"
               variant="outlined"
               value={lang}
-              open
             >
               <MenuItem value={"ko"}>한국어 /Korean /韓國語</MenuItem>
               <MenuItem value={"jp"}>일본어 /Japanese /日本語</MenuItem>

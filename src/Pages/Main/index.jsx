@@ -14,6 +14,7 @@ import { setSelectedLocation } from "../../store/slices/locationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getBoardList, getTabs } from "../../apis/boardApis";
 import { setContentInfo } from "../../store/slices/contentSlice";
+import LoginModal from "src/components/LoginModal";
 
 const StyledTab = styled(Tab)({
   fontSize: "0.9rem",
@@ -35,6 +36,7 @@ const Main = () => {
   const [boardList, setBoardList] = useState([]);
   const [guList, setGuList] = useState([]);
   const [currentGu, setCurrentGu] = useState(selectedLocation);
+  const { isLoggedIn } = useSelector((state) => state.user);
   // const [content, setContent] = useState({});
 
   const handleCurrentGu = (e) => {
@@ -44,7 +46,10 @@ const Main = () => {
 
   const onClickWriting = (e) => {
     e.preventDefault();
-    navigate("/writing");
+
+    if (!isLoggedIn) {
+      setIsLoginModalOpen(true);
+    } else navigate("/writing");
   };
 
   const onClickContent = (e, board) => {
@@ -54,6 +59,8 @@ const Main = () => {
 
     navigate("/detail");
   };
+
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   useEffect(() => {
     const requestData = async () => {
@@ -102,7 +109,6 @@ const Main = () => {
         sx={{
           width: "21.438rem",
           bg: theme.palette.background.default,
-          overflowY: "scroll",
         }}
       >
         <Tabs
@@ -147,9 +153,6 @@ const Main = () => {
           alignItems={"center"}
           justifyContent={"space-between"}
           p={1}
-          sx={{
-            overflow: "scroll",
-          }}
         >
           <TextField
             select
@@ -203,6 +206,12 @@ const Main = () => {
           />
         ))}
       </Box>
+      {isLoginModalOpen && (
+        <LoginModal
+          open={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
     </Card>
   );
 };
