@@ -28,9 +28,10 @@ const Writing = () => {
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const address = useSelector((state) => state.location.selectedLocation);
   const { lang } = useSelector((state) => state.lang);
-  const [selectedCategory, setSelectedCategory] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState(    { categoryId: 1, text: lang === "ko" ? "동네맛집" : lang=== "jp" ? "近所グルメ" : "I need help!"},
+  );
   const [categoryList, setCategoryList] = useState([
-    { categoryId: 1, text: "동네맛집" },
+    { categoryId: 1, text: lang === "ko" ? "동네맛집" : lang=== "jp" ? "近所グルメ" : "I need help!"},
   ]);
 
   const formik = useFormik({
@@ -47,8 +48,10 @@ const Writing = () => {
       const selected = selectedCategory.categoryId;
       const title = "";
       let formData = new FormData();
+
       for (let i = 0; i < images.length; i++) {
         formData.append("files[]", images[i]);
+
       }
       for (let value of formData.values()) {
         console.log(value);
@@ -78,7 +81,6 @@ const Writing = () => {
         const list = res?.data.data;
 
         setCategoryList(list);
-        setSelectedCategory(list[0]);
       } catch (e) {
         console.log(e);
       }
@@ -115,6 +117,9 @@ const Writing = () => {
     setImages(files);
   };
 
+  console.log(selectedCategory)
+
+
   return (
     <Box
       sx={{
@@ -145,7 +150,7 @@ const Writing = () => {
                 pb: 1,
               },
           }}
-          value={selectedCategory.text}
+          defaultValue={selectedCategory.text}
           onChange={handleChangeCategory}
         >
           {categoryList.map((list, i) => (

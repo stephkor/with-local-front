@@ -132,6 +132,8 @@ const Detail = () => {
   };
 
   const onClickLike = async () => {
+    if (!isLoggedIn) setIsLoginModalOpen(true)
+    else
     try {
       const res = await postLike(postId);
 
@@ -146,6 +148,8 @@ const Detail = () => {
   };
 
   const onClickCommentLike = async (postId, commentId) => {
+    if (!isLoggedIn) setIsLoginModalOpen(true)
+    else
     try {
       await postCommentLike(postId, commentId);
       setEffectUpdate((effectUpdate) => !effectUpdate);
@@ -156,6 +160,8 @@ const Detail = () => {
   };
 
   const onClickMark = async () => {
+    if (!isLoggedIn) setIsLoginModalOpen(true)
+    else
     try {
       await postMark(postId);
 
@@ -227,7 +233,7 @@ const Detail = () => {
             letterSpacing: "normal",
             textAlign: "left",
             p: 0,
-            height: 300,
+            minHeight: "10.188rem",
             display: "flex",
             justifyContent: "space-between",
             flexDirection: "column",
@@ -352,13 +358,17 @@ const Detail = () => {
               ModalProps={{
                 keepMounted: true,
               }}
+              sx={{ ".MuiPaper-root": {
+                  borderTopLeftRadius: 20,
+                  borderTopRightRadius: 20,
+                }}}
             >
               <StyledBox
                 sx={{
+                  borderTopLeftRadius: 120,
+                  borderTopRightRadius: 120,
                   position: "absolute",
                   top: -drawerBleeding,
-                  borderTopLeftRadius: 8,
-                  borderTopRightRadius: 8,
                   visibility: "visible",
                   right: 0,
                   left: 0,
@@ -369,32 +379,37 @@ const Detail = () => {
                   px: 2,
                   pb: 2,
                   pt: 2,
+                  borderTopLeftRadius: 120,
+                  borderTopRightRadius: 120,
                   height: 140,
                   overflow: "auto",
                   display: "flex",
                   flexDirection: "column",
                 }}
               >
+
                 <TextField
                   multiline
                   rows={4}
                   placeholder="타인을 존중하는 말 한마디가 상대방에게 큰 힘이 됩니다!"
                   onChange={(e) => setCommentText(e.target.value)}
                 />
-              </StyledBox>
+
               <Button
-                variant="contained"
-                onClick={() => {
-                  if (openReply) {
-                    handleReplySubmit();
-                  } else {
-                    handleSubmit();
-                  }
-                  toggleDrawer(false);
-                }}
+                  sx={{width : "90%"}}
+                  variant="contained"
+                  onClick={() => {
+                    if (openReply) {
+                      handleReplySubmit();
+                    } else {
+                      handleSubmit();
+                    }
+                    toggleDrawer(false);
+                  }}
               >
                 댓글 쓰기
               </Button>
+              </StyledBox>
             </SwipeableDrawer>
           )}
         </div>

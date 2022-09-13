@@ -17,11 +17,11 @@ import { setContentInfo } from "../../store/slices/contentSlice";
 import LoginModal from "src/components/LoginModal";
 
 const StyledTab = styled(Tab)({
-  fontSize: "0.9rem",
+  fontSize: "1rem",
   color: theme.palette.point.browngrey,
-  paddingRight: "1.25rem",
+  paddingRight: "1.5rem",
   paddingLeft: 0,
-  maxWidth: "8rem",
+
   minWidth: "3.725rem",
   textAlign: "left",
 });
@@ -96,30 +96,90 @@ const Main = () => {
   return (
     <Card
       sx={{
-        backgroundColor: theme.palette.background.default,
-        boxShadow: "none",
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
-        height: "100vh",
-        overflow: "scroll",
-        pb: 3,
-      }}
+            backgroundColor: theme.palette.background.default,
+            boxShadow: "none",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            height: "100vh",
+            overflowY: "scroll",
+            paddingTop: "1.875rem",
+            pb: 3,
+          margin: 0,
+        "& ::-webkit-scrollbar": {
+              display: "none"
+        }
+          }}
     >
       <Box
         sx={{
-          width: "21.438rem",
           bg: theme.palette.background.default,
         }}
       >
-        <Tabs
+          <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              sx={{marginBottom: "2.626rem", }}
+
+          >
+              <TextField
+                  select
+                  value={currentGu !== "" ? currentGu : selectedLocation}
+                  variant={"standard"}
+                  onChange={handleCurrentGu}
+                  sx={{
+                      borderBottom: "none",
+                      "& p": {
+                          fontStyle: theme.typography.h3,
+                      },
+                      "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
+                          {
+                              borderBottom: "none",
+                          },
+                  }}
+              >
+                  {guList.map((list) => (
+                      <MenuItem key={list.gu} value={list?.gu}>
+                          <Typography>{list?.gu}</Typography>
+                      </MenuItem>
+                  ))}
+              </TextField>
+              <IconButton
+                  size={"small"}
+                  onClick={onClickWriting}
+                  sx={{ bg: "#ffffff" }}
+              >
+                  <Box
+                      component={"img"}
+                      src={"/images/Bottons_Posting_H27.png"}
+                      sx={{ width: "4.313rem", height: "1.5rem" }}
+                  />
+              </IconButton>
+          </Box>
+
+          <Tabs
           sx={{
+              minWidth: "100vw",
             padding: 0,
-            margin: 0,
+            color: "black",
+            "& :after": {
+              display: "none"
+            },
+            ".css-1d5hna4-MuiButtonBase-root-MuiTab-root.Mui-selected" : {
+              color: "black"
+            },
             "& :last-child": {
               paddingRight: 0,
               paddingLeft: 0,
             },
-            ".MuiTabs-indicator": { display: "none" },
+            "& .MuiTabs-indicator": { display: "none" },
+            "& div.MuiInputBase-root.Mui-focused:after": {display: "none"},
+            "& div.MuiInputBase-root-MuiInput-root:after": {
+              display: "none"
+            },
+            display: "flex",
+              alignItems:"center",
+              justifyContent: "space-around"
           }}
           value={tab.text}
           onChange={(e, newValue) => {
@@ -148,47 +208,6 @@ const Main = () => {
         </Tabs>
       </Box>
       <Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          p={1}
-        >
-          <TextField
-            select
-            value={currentGu !== "" ? currentGu : selectedLocation}
-            variant={"standard"}
-            onChange={handleCurrentGu}
-            sx={{
-              borderBottom: "none",
-              "& p": {
-                fontStyle: theme.typography.h3,
-              },
-              "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
-                {
-                  borderBottom: "none",
-                },
-            }}
-          >
-            {guList.map((list) => (
-              <MenuItem key={list.gu} value={list?.gu}>
-                <Typography>{list?.gu}</Typography>
-              </MenuItem>
-            ))}
-          </TextField>
-          <IconButton
-            size={"small"}
-            onClick={onClickWriting}
-            sx={{ bg: "#ffffff" }}
-          >
-            <Box
-              component={"img"}
-              src={"/images/Bottons_Posting_H27.png"}
-              sx={{ width: "4.313rem", height: "1.5rem" }}
-            />
-          </IconButton>
-        </Box>
-
         {boardList.map((board) => (
           <Content
             key={board.postId}

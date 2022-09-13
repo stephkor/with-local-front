@@ -38,7 +38,7 @@ export const getBoardList = async (lang, categoryId) => {
       country: lang,
       category: categoryId,
       page: 1,
-      size: 20,
+      size: 100
     });
     return res.data;
   } catch (e) {

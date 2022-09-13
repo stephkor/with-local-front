@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import {
-  Box,
-  Typography,
-  TextField,
-  InputAdornment,
-  MenuItem,
-  Select,
+    Box,
+    Typography,
+    TextField,
+    InputAdornment,
+    MenuItem,
+    Select, Popper, InputLabel,
 } from "@mui/material";
 import { theme } from "../../theme";
 import { useNavigate } from "react-router-dom";
+import Autocomplete from '@mui/material/Autocomplete';
 
 import { getGuAddress } from "../../apis/addressApis";
 import { setSelectedLocation } from "../../store/slices/locationSlice";
@@ -21,18 +22,24 @@ const Intro = () => {
 
   const { lang } = useSelector((state) => state.lang);
   const { selectedLocation } = useSelector((state) => state.location);
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
+    const handleClick = (event) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget);
+    };
+
+    const open = Boolean(anchorEl);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
-  const [isLangOpen, setIsLangOpen] = useState(false);
-  console.log(isLangOpen, setIsLangOpen);
   const [guList, setGuList] = useState([]);
-  const handleCurrentGu = (e) => {
-    dispatch(setSelectedLocation(e.target.value));
-  };
+  const handleCurrentGu = useCallback((e, newValue) => {
+    dispatch(setSelectedLocation(newValue.gu));
+  },[]);
 
   const handleLanguage = (e) => {
     dispatch(changeLangSetting(e.target.value));
   };
+
+
 
   useEffect(() => {
     const requestData = async () => {
@@ -51,6 +58,7 @@ const Intro = () => {
   if (selectedLocation && lang) {
     navigate("/main");
   }
+
 
   return (
     <Box
@@ -98,20 +106,29 @@ const Intro = () => {
             로컬과 함께 <br />
             서울을 여행해봐요!
           </Typography>
-
-          <TextField
+          <Autocomplete
             autoFocus
             sx={{
               width: "75vw",
-              "& .css-17s7jup-MuiInputBase-root-MuiOutlinedInput-root": {
-                borderRadius: "40px",
-                backgroundColor: "#FFFFFF",
-              },
+
+              backgroundColor: "white",
+              borderRadius: 40,
+                "& .css-1h28jlc-MuiOutlinedInput-notchedOutline" : {
+                  borderRadius: 40,
+
+                },
+                "& MuiBox-root.css-1vr2anf": {
+                    borderRadius: 40,
+
+                }
             }}
             size={"small"}
-            onClick={() => setIsSearchClicked(true)}
-            placeholder={"오늘은 어디를 여행하시나요??"}
+            onChange={(e, newValue) => handleCurrentGu(e, newValue)}
+            placeholder={"오늘은 어디를 여행하시나요?"}
             margin="dense"
+            options={guList}
+            getOptionLabel={(option) => option.gu}
+            renderInput={(params) => <TextField {...params} placeholder="오늘은 어디를 여행하시나요?" InputProps={{ ...params.InputProps}} />}
             InputProps={{
               endAdornment: (
                 <InputAdornment position={"end"}>
@@ -120,34 +137,25 @@ const Intro = () => {
               ),
             }}
           />
-          {isSearchClicked && (
-            <Select
-              margin="dense"
-              variant="outlined"
-              value={selectedLocation}
-              onChange={handleCurrentGu}
-              sx={{ width: "80%", borderRadius: 40, backgroundColor: "white" }}
-            >
-              {guList.map((list) => (
-                <MenuItem key={list.gu} value={list?.gu}>
-                  <Typography>{list?.gu}</Typography>
-                </MenuItem>
-              ))}
-            </Select>
-          )}
-          {selectedLocation && (
-            <Select
-              sx={{ width: "80%", borderRadius: 40, backgroundColor: "white" }}
-              onChange={handleLanguage}
-              margin="dense"
-              variant="outlined"
-              value={lang}
-            >
-              <MenuItem value={"ko"}>한국어 /Korean /韓國語</MenuItem>
-              <MenuItem value={"jp"}>일본어 /Japanese /日本語</MenuItem>
-              <MenuItem value={"en"}>영어 /English/ 英語</MenuItem>
-            </Select>
-          )}
+          <TextField
+            sx={{ width: "45vw", marginTop: "2.063rem", ".css-euzdch-MuiInputBase-root-MuiInput-root:before" : {
+                borderBottom: "none"
+                }}}
+            select id="select"
+            label="언어 선택"
+            variant={"standard"}
+            onChange={handleLanguage}
+            InputProps={{
+              startAdornment: (
+                  <InputAdornment position="start">
+                      <Box component={"img"} src={"/images/Location_H24.svg"}/>
+                  </InputAdornment>
+              ),
+          }}>
+            <MenuItem value={"ko"}>Korean</MenuItem>
+            <MenuItem value={"jp"}>Japanese</MenuItem>
+            <MenuItem value={"en"}>English</MenuItem>
+          </TextField>
         </Box>
       </Box>
     </Box>

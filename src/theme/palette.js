@@ -17,6 +17,9 @@ const customPalette = createPalette({
     marigold: "#ffc400",
     browngrey: "#888888",
   },
+  primary: {
+    main: "#04f"
+  }
 });
 
 export default customPalette;

@@ -30,13 +30,12 @@ const LangMap = [
 const Topbar = () => {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [isLangClicked, setIsLangClicked] = useState(false);
-  console.log(isLangClicked, isHamburgerClicked);
   const { selectedLocation } = useSelector((state) => state.location);
   const [isHamburgerClicked, setIsHamburgerClicked] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-
+  console.log(isLangClicked, isHamburgerClicked);
   const onClickBack = () => {
     history.back();
   };
@@ -76,17 +75,16 @@ const Topbar = () => {
       sx={{
         backgroundColor: theme.palette.background.default,
         boxShadow: "none",
-        width: "100vw",
+
       }}
     >
       <Box
         sx={{
           height: TOPBAR_HEIGHT,
-
           alignItems: "center",
           justifyContent: "space-between",
-          paddingLeft: 2,
-          paddingRight: 3,
+          paddingLeft: "1rem",
+          paddingRight: "1rem",
           display: isSearchClicked ? "none" : "flex",
         }}
       >

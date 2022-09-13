@@ -73,7 +73,7 @@ const Mypage = () => {
           pb: 3,
         }}
       >
-        <Typography variant={"h6"}> 서울 로컬</Typography>
+        <Typography sx={{ fontFamily: "NanumSquare", fontSize: 24, fontWeight: "bold"}}> 서울 로컬</Typography>
       </Grid>
       <Grid item xs={12} spacing={3} pb={2}>
         <Typography gutterBottom>내가 받은 리워드</Typography>
