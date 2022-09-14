@@ -58,7 +58,7 @@ const Content = ({
   };
 
   return (
-    <Card sx={{ padding: "1rem", paddingBottom: 1, mt: 1, boxShadow: "none", borderRadius: "none", height: "10.25rem", }} onClick={onClick} >
+    <Card sx={{ padding: "1rem",  mt: "0.75rem", boxShadow: "none", borderRadius: "none", height: "10.25rem", }} onClick={onClick} >
       <ContentBadge desc={desc} />
       <CardContent
         sx={{

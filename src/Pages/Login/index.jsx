@@ -27,7 +27,7 @@ const Login = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
+      email: Yup.string().email("이메일 형식으로 입력해 주세요")
         .max(50, "최대 50자 까지 입력할 수 있습니다.")
         .required("아이디를 입력해주세요."),
       password: Yup.string()

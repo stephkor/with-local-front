@@ -117,17 +117,23 @@ const Topbar = () => {
           <Box
             component={"img"}
             src={"/images/Location_H24.svg"}
-            sx={{ mr: "0.875rem" }}
+            style={{width: "1.023rem",
+              height: "1.023rem",
+              margin: "0 0.227rem 0 0"}}
             onClick={(e) => handleLangClick(e)}
           />
-          <SearchOutlined
-            sx={{ color: "black", mr: "0.875rem" }}
-            onClick={() => setIsSearchClicked(true)}
-          />
+            <img src={"/images/IC_Search.svg"} alt={"search icon"}
+                 style={{width: "1.023rem",
+              height: "1.023rem",
+              margin: "0 0.227rem 0 0"}} />
+
           <img
             src={"/images/IC_Hamburger.svg"}
             onClick={handleHamburgerClicked}
             alt="hamburger menu"
+            style={{width: "1.023rem",
+              height: "1.023rem",
+              margin: "0 0.227rem 0 0"}}
           />
         </Box>
       </Box>
