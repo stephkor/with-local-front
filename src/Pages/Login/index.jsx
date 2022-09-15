@@ -4,7 +4,7 @@ import {
   Typography,
   TextField,
   Button,
-  CircularProgress,
+  CircularProgress, Input, InputBase,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -31,7 +31,6 @@ const Login = () => {
         .max(50, "최대 50자 까지 입력할 수 있습니다.")
         .required("아이디를 입력해주세요."),
       password: Yup.string()
-        .max(50, "최대 50자 까지 입력할 수 있습니다.")
         .required("비밀번호를 입력해주세요."),
     }),
 
@@ -100,11 +99,10 @@ const Login = () => {
             variant="outlined"
             required
             fullWidth
-            id="password"
-            name="password"
             type="password"
+            id="password"
+            sx={{ "& .css-30ojto-MuiInputBase-input-MuiOutlinedInput-input" : {fontFamily: "auto"}}}
             label="비밀번호"
-            sx={{ color: "black" }}
             error={!!(formik.touched.password && formik.errors.password)}
             helperText={
               formik.touched.password && formik.errors.password

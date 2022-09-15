@@ -5,7 +5,7 @@ import {
     TextField,
     InputAdornment,
     MenuItem,
-    Select, Popper, InputLabel,
+
 } from "@mui/material";
 import { theme } from "../../theme";
 import { useNavigate } from "react-router-dom";
@@ -16,24 +16,18 @@ import { setSelectedLocation } from "../../store/slices/locationSlice";
 import { changeLangSetting } from "src/store/slices/languageSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const Intro = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { lang } = useSelector((state) => state.lang);
   const { selectedLocation } = useSelector((state) => state.location);
-    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleClick = (event) => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
-    };
-
-    const open = Boolean(anchorEl);
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [guList, setGuList] = useState([]);
   const handleCurrentGu = useCallback((e, newValue) => {
     dispatch(setSelectedLocation(newValue.gu));
-  },[]);
+  },[dispatch]);
 
   const handleLanguage = (e) => {
     dispatch(changeLangSetting(e.target.value));
@@ -66,6 +60,7 @@ const Intro = () => {
         backgroundColor: theme.palette.background.default,
         width: "100vw",
         height: "100vh",
+
       }}
     >
       <Box
@@ -74,15 +69,12 @@ const Intro = () => {
         justifyContent={"center"}
         flexDirection="column"
       >
-        <div
-          style={{
-            padding: "1.105rem 0 0 ",
-            width: "6.229rem",
-            height: "1.083rem",
-          }}
-        >
-          <Box component={"img"} src="/images/with-local-intro.png" />
-        </div>
+
+          <Box component={"img"} src="/images/with-local-intro.png"
+               sx={{
+                   mt: "1.786rem",
+                   width: "9.967rem" ,
+                   height: "1.732rem"}}/>
         <Box />
         <Box />
         <Box
@@ -93,11 +85,11 @@ const Intro = () => {
         >
           <Typography
             style={{
-              width: "17.875rem",
-              height: "4.75rem",
+              width: "28.6rem",
+              height: "7.6rem",
               margin: " 5.875rem 2.75rem 2.813rem",
               fontFamily: "NanumSquare",
-              fontSize: "1.875rem",
+              fontSize: "3rem",
               fontWeight: 800,
               lineHeight: 1.33,
               textAlign: "center",
@@ -109,8 +101,7 @@ const Intro = () => {
           <Autocomplete
             autoFocus
             sx={{
-              width: "75vw",
-
+              width: "75vw",mt: "3.2rem",
               backgroundColor: "white",
               borderRadius: 40,
                 "& .css-1h28jlc-MuiOutlinedInput-notchedOutline" : {
@@ -132,17 +123,18 @@ const Intro = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position={"end"}>
-                  <Box component={"img"} src={"/images/IC_Search.svg"} />
+                  <Box component={"img"} src={"/images/IC_Search.png"} />
                 </InputAdornment>
               ),
             }}
           />
           <TextField
-            sx={{ width: "45vw", marginTop: "2.063rem", ".css-euzdch-MuiInputBase-root-MuiInput-root:before" : {
+            sx={{ width: "45vw", marginTop: "3.2rem", ".css-euzdch-MuiInputBase-root-MuiInput-root:before" : {
                 borderBottom: "none"
                 }}}
             select id="select"
             label="언어 선택"
+            defaultValue={"ko"}
             variant={"standard"}
             onChange={handleLanguage}
             InputProps={{

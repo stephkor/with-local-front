@@ -6,7 +6,7 @@ module.exports = {
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "react/jsx-props-no-spreading": "off",
     "no-shadow": "off",
     "no-use-before-define": "off",

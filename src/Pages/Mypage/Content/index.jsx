@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setContentInfo } from "src/store/slices/contentSlice";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import ContentBadge from "src/components/Content/Badge";
+import MypageContentBadge from "../MypageContentBadge";
 
 const MyPageContent = ({
   likeNum,
@@ -34,34 +35,44 @@ const MyPageContent = ({
   return (
     <Card
       sx={{
-        padding: "0.5rem",
-        width: "90%",
-        marginBottom: 3,
+          padding: "1.2rem",
+        width: "34.3rem",
+          height: "6.8rem",
+        marginBottom: "0.8rem",
       }}
       onClick={(e) => onClickContent(e, post)}
     >
-      <Box display="flex">
-        <ContentBadge desc={desc} />
-        <CardContent
-          sx={{
+      <Box display="flex" flexDirection={"row"} alignItems={"fs"}>
+        <MypageContentBadge desc={desc} sx={{ "& div" : {
+            margin: 0
+            }}} />
+        <div
+          style={{
             fontFamily: "NanumSquare",
-            fontSize: "0.875rem",
+            fontSize: "1.4rem",
             fontWeight: "bold",
             fontStretch: "normal",
             fontStyle: "normal",
             lineHeight: 1.71,
             letterSpacing: "normal",
             textAlign: "left",
-            p: 0,
+            padding: 0,
+              "& .MuiCardContent-root":{
+                paddingBottom: 0
+              },
+              "&  .MuiCardContent-root:last-child": {
+                  paddingBottom: 0
+              }
+
           }}
         >
           <div>{displayValue} ...</div>
-        </CardContent>
+        </div>
       </Box>
-      <Box display="flex" alignItems="center" justifyContent={"space-evenly"}>
-        <Typography>{handleCreatedAt()}</Typography>
-        <Typography> 좋아요 {likeNum}</Typography>
-        <Typography>댓글</Typography> <Typography>{commentNum}</Typography>
+      <Box display="flex" alignItems="center" >
+        <Typography sx={{fontSize: "1rem", mr: "0.2rem"}}>{handleCreatedAt()}</Typography>
+        <Typography sx={{fontSize: "1rem", mr: "0.2rem"}}> 좋아요 {likeNum}</Typography>
+        <Typography sx={{fontSize: "1rem", mr: "0.2rem"}}>댓글 {commentNum}</Typography>
       </Box>
     </Card>
   );

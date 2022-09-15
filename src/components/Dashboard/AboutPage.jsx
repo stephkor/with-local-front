@@ -34,7 +34,7 @@ const AboutPage = () => {
         </Box>
       </AppBar>
       <Box>
-        <Box sx={{ width: "100vw" }} component="img" src="/images/about.png" />
+        <Box sx={{ width: "100vw" }} component="img" src="/images/with-local-intro.png" />
       </Box>
     </Box>
   );

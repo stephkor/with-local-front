@@ -61,52 +61,81 @@ const Mypage = () => {
         backgroundColor: theme.palette.background.default,
         paddingLeft: "1rem",
         paddingRight: "1rem",
-        height: "100%",
+        pb: "2rem"
       }}
     >
-      <Grid
-        item
-        xs={12}
-        spacing={2}
-        sx={{
-          pt: "1.5rem",
-          pb: 3,
-        }}
-      >
-        <Typography sx={{ fontFamily: "NanumSquare", fontSize: 24, fontWeight: "bold"}}> 서울 로컬</Typography>
-      </Grid>
-      <Grid item xs={12} spacing={3} pb={2}>
-        <Typography gutterBottom>내가 받은 리워드</Typography>
-        <Grid>
+        <Typography id="mypageTitle" > 서울 로컬</Typography>
+
+
+        <Typography gutterBottom varaint={"caption"}
+          sx={{
+          fontFamily: "NanumSquare",
+          fontSize: "1.6rem",
+          fontWeight: "bold",
+          fontStretch: "normal",
+          fontStyle: "normal",
+          lineHeight: 1.71,
+          letterSpacing: "normal",
+          color: "#888888",
+            pb: "1.8rem",
+          textAlign: "left"}}>내가 받은 리워드</Typography>
+
           {Boolean(myData.reward.signUp) && (
-            <Card sx={{ width: "fit-content" }}>
+            <Card sx={{ width: "fit-content", marginBottom: "3.6rem"}}>
               <Box
                 component={"img"}
                 src="/images/signup-reward.png"
-                sx={{ width: "auto", height: 180 }}
+                sx={{ width: "10.313", height: "10.313rem" }}
               />
             </Card>
           )}
-        </Grid>
-      </Grid>
-      <Grid item xs={12} spacing={2}>
-        <Typography gutterBottom>저장한 글</Typography>
+
+
+
+        <Typography gutterBottom sx={{
+          fontFamily: "NanumSquare",
+          fontSize: "1.6rem",
+          fontWeight: "bold",
+          fontStretch: "normal",
+          fontStyle: "normal",
+          lineHeight: 1.71,
+          letterSpacing: "normal",
+          color: "#888888",
+          pb: "1.8rem",
+          textAlign: "left"}}>저장한 글</Typography>
         {myData.marks.length < 1 && (
           <Box
             display="flex"
             alignItems={"center"}
             justifyContent="center"
             flexDirection={"column"}
-            p={2}
+            sx={{
+              p: "2rem",
+            }}
           >
-            <Typography variant="caption" gutterBottom>
+            <Typography variant="caption" gutterBottom sx={{fontFamily: "NanumSquare",
+              fontSize: "1.6rem",
+              fontWeight: "bold",
+              fontStretch: "normal",
+              fontStyle: "normal",
+              lineHeight: 1.71,
+              letterSpacing: "normal",
+              textAlign: "left"}}>
               저장한 글이 없습니다
             </Typography>
             <Link to="/main">
-              <Typography variant="caption">
+              <Typography sx={{fontFamily: "NanumSquare",
+                fontSize: "1.6rem",
+                fontWeight: "bold",
+                fontStretch: "normal",
+                fontStyle: "normal",
+                lineHeight: 1.71,
+                textDecoration: "underline",
+                letterSpacing: "normal",
+                textAlign: "left"}}>
                 {lang === "ko"
-                  ? "동네 소식 보러가기"
-                  : "Go see neighborhood posts"}
+                  ? "동네 소식 보러가기 >"
+                  : "Go see neighborhood posts >"}
               </Typography>
             </Link>
           </Box>
@@ -123,9 +152,17 @@ const Mypage = () => {
               post={mark}
             />
           ))}
-      </Grid>
-      <Grid item xs={12} spacing={2}>
-        <Typography gutterBottom>좋아요 한 글</Typography>
+
+        <Typography gutterBottom sx={{ fontFamily: "NanumSquare",
+          fontSize: "1.6rem",
+          fontWeight: "bold",
+          fontStretch: "normal",
+          fontStyle: "normal",
+          lineHeight: 1.71,
+          letterSpacing: "normal",
+          color: "#888888",
+          pb: "1.8rem",
+          textAlign: "left"}}>좋아요 한 글</Typography>
         {myData.postLiked.length < 1 && (
           <Box
             display="flex"
@@ -162,9 +199,18 @@ const Mypage = () => {
               ))}
           </Slider>
         </Box>
-      </Grid>
-      <Grid item xs={12} spacing={2}>
-        <Typography gutterBottom>내가 남긴 댓글</Typography>
+
+
+        <Typography gutterBottom sx={{ fontFamily: "NanumSquare",
+          fontSize: "1.6rem",
+          fontWeight: "bold",
+          fontStretch: "normal",
+          fontStyle: "normal",
+          lineHeight: 1.71,
+          letterSpacing: "normal",
+          color: "#888888",
+          pb: "1.8rem",
+          textAlign: "left"}}>내가 남긴 댓글</Typography>
         <Box padding={2}>
           <Slider {...settings}>
             {myData.wrote.length >= 1 &&
@@ -201,7 +247,7 @@ const Mypage = () => {
             </Link>
           </Box>
         )}
-      </Grid>
+
     </Box>
   );
 };

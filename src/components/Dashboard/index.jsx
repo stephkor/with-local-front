@@ -4,11 +4,13 @@ import Box from "@mui/material/Box";
 import { TOPBAR_HEIGHT } from "src/config/layout";
 import Topbar from "./Topbar";
 import { fetchRewardApi } from "../../apis/rewardsApis";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import { setReward } from "../../store/slices/userSlice";
 
 const Dashboard = ({ children }) => {
   const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     const requestReward = async () => {

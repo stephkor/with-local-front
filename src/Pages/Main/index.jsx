@@ -17,12 +17,18 @@ import { setContentInfo } from "../../store/slices/contentSlice";
 import LoginModal from "src/components/LoginModal";
 
 const StyledTab = styled(Tab)({
-  fontSize: "1rem",
-  color: theme.palette.point.browngrey,
-  paddingRight: "1.5rem",
-  paddingLeft: 0,
-  minWidth: "3.725rem",
-  textAlign: "left",
+    width: "5.8rem",
+    height: "1.8rem",
+    fontFamily: "NanumSquare",
+    fontSize: "1.6rem",
+    fontWeight: "bold",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "normal",
+    textAlign: "left",
+   // pr: "1.875rem",
+    padding: 0
 });
 
 const Main = () => {
@@ -36,7 +42,9 @@ const Main = () => {
   const [guList, setGuList] = useState([]);
   const [currentGu, setCurrentGu] = useState(selectedLocation);
   const { isLoggedIn } = useSelector((state) => state.user);
-  // const [content, setContent] = useState({});
+
+
+
 
   const handleCurrentGu = (e) => {
     setCurrentGu(e.target.value);
@@ -48,7 +56,8 @@ const Main = () => {
 
     if (!isLoggedIn) {
       setIsLoginModalOpen(true);
-    } else navigate("/writing");
+    } else
+    navigate("/writing");
   };
 
   const onClickContent = (e, board) => {
@@ -61,24 +70,21 @@ const Main = () => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-
-
   const renderCategory = useCallback((tabList, tab) => {
-      tabList.push({categoryId: 4, text: "인기"})
-      const selected = tabList.find((list)=> list.categoryId === tab.categoryId)
+       if(tabList.length === 3)  tabList.unshift({categoryId: 4, text: "인기"})
 
-
+      const selected = tabList.length === 4 && tabList.find((list)=> list.categoryId === tab.categoryId)
 
 
       return (
-          <div style={{ display: "flex" , alignItems: "center"}}>
+          <Box sx={{ width: '100%' }}>
 
-              <Tabs
+          <Tabs
                   sx={{
                       padding: 0,
-                      width: "22.375rem",
-                      height:" 1.75rem",
+                      minHeight: "1.75rem",
                       color: "black",
+                      textAlign: "left",
                       "& :after": {
                           display: "none"
                       },
@@ -89,14 +95,21 @@ const Main = () => {
                           paddingRight: 0,
                           paddingLeft: 0,
                       },
+                      "& .MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller": {
+                          width: "100%"
+                      },
+
                       "& .MuiTabs-indicator": { display: "none" },
                       "& div.MuiInputBase-root.Mui-focused:after": {display: "none"},
                       "& div.MuiInputBase-root-MuiInput-root:after": {
                           display: "none"
                       },
-                      display: "flex",
-                      alignItems:"center",
-                      justifyContent: "space-around"
+                      "& button" : {
+                          minWidth: "fit-content"
+                      },
+                      "& div.MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer": {
+                          width: "100%",
+                      }
                   }}
                   value={tab.text}
                   onChange={(e, newValue) => {
@@ -106,45 +119,36 @@ const Main = () => {
                       });
                   }}
                   textColor="primary"
-              >
-          {tabList.map((list) =>{
-              return  selected.categoryId === list.categoryId ?
-                      (<div
-                      style={{ width: "0.438rem",
-                          height: "0.438rem",
-                          backgroundColor: theme.palette.primary.main,
-                          margin: "0  0"}}>
-            <span style={{
-                width: "2.25rem",
-                height: "1.375rem",
-                margin: "0.375rem 0 0 0.313rem",
-                fontFamily: "NanumSquare",
-                fontSize: "1.25rem",
-                fontWeight: 800,
-                fontStretch: "normal",
-                fontStyle: "normal",
-                lineHeight: "normal",
-                letterSpacing: "normal",
-                textAlign: "left",
-            }}
-                  defaultValue={selected.text}
-                  label={selected.text} key={selected.categoryId}
-                  id={selected.categoryId}>
-                  id={selected.categoryId}>
-                 {selected.text}
-                     </span>
-                  </div>): (<StyledTab
+                  variant="fullWidth"
+
+          >
+                {tabList.map((list) =>{
+                    return  (selected.categoryId === list.categoryId) ? (
+                        <>
+                        <div style={{
+                            textAlign: "bottom",
+                            width: "0.7rem",
+                            height: "0.7rem",
+                            backgroundColor: theme.palette.primary.main,
+                            margin: "0"}}
+                         />
+                        <Tab
+                            class="selectedTab"
+                            id={list.categoryId.toString()}
+                              key={list.categoryId}
+                              value={list.text}
+                              label={list.text} />
+                        </>):
+                  (<StyledTab
                       id={list.categoryId.toString()}
                       key={list.categoryId}
                       value={list.text}
                       label={list.text}>{list.text}</StyledTab>)}
-
          )}
               </Tabs>
-
-  </div>
+          </Box>
       )
-  },[tab])
+  },[])
 
 
 
@@ -219,8 +223,12 @@ const Main = () => {
                   onChange={handleCurrentGu}
                   sx={{
                       borderBottom: "none",
+                      "& .css-euzdch-MuiInputBase-root-MuiInput-root:before" :{
+                          borderBottom: "none"
+                  },
                       "& p": {
                           fontStyle: theme.typography.h3,
+                          fontSize: "2.4rem"
                       },
                       "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
                           {
@@ -235,91 +243,22 @@ const Main = () => {
                   ))}
               </TextField>
               <IconButton
-                  size={"small"}
                   onClick={onClickWriting}
-                  sx={{ bg: "#ffffff" }}
+                  sx={{ bg: "#ffffff" ,     width: "6.9rem",
+                      height: "2.4rem"}}
               >
                   <Box
                       component={"img"}
                       src={"/images/Bottons_Posting_H27.png"}
-                      sx={{ width: "4.313rem", height: "1.5rem" }}
+                      sx={{  width: "6.9rem",
+                          height: "2.4rem" }}
                   />
               </IconButton>
           </Box>
 
-        {/*  <Tabs*/}
-        {/*  sx={{*/}
-        {/*    padding: 0,*/}
-        {/*    color: "black",*/}
-        {/*    "& :after": {*/}
-        {/*      display: "none"*/}
-        {/*    },*/}
-        {/*    ".css-1d5hna4-MuiButtonBase-root-MuiTab-root.Mui-selected" : {*/}
-        {/*      color: "black"*/}
-        {/*    },*/}
-        {/*    "& :last-child": {*/}
-        {/*      paddingRight: 0,*/}
-        {/*      paddingLeft: 0,*/}
-        {/*    },*/}
-        {/*    "& .MuiTabs-indicator": { display: "none" },*/}
-        {/*    "& div.MuiInputBase-root.Mui-focused:after": {display: "none"},*/}
-        {/*    "& div.MuiInputBase-root-MuiInput-root:after": {*/}
-        {/*      display: "none"*/}
-        {/*    },*/}
-        {/*    display: "flex",*/}
-        {/*      alignItems:"center",*/}
-        {/*      justifyContent: "space-around"*/}
-        {/*  }}*/}
-        {/*  value={tab.text}*/}
-        {/*  onChange={(e, newValue) => {*/}
-        {/*    setTab({*/}
-        {/*      categoryId: parseInt(e.target.id),*/}
-        {/*      text: newValue,*/}
-        {/*    });*/}
-        {/*  }}*/}
-        {/*  textColor="primary"*/}
-        {/*>*/}
-        {/*      <StyledTab*/}
-        {/*          id={4}*/}
-        {/*          key={4}*/}
-        {/*          value={"인기"}*/}
-        {/*          label={"인기"}*/}
-        {/*          onClick={(e) => setTab({ categoryId: 4, text: "인기" })}*/}
-        {/*      />*/}
-
-        {/*  {tabList.map((list) => (*/}
-        {/*    <StyledTab*/}
-        {/*      id={list.categoryId.toString()}*/}
-        {/*      key={list.categoryId}*/}
-        {/*      value={list.text}*/}
-        {/*      label={list.text}*/}
-        {/*    />*/}
-        {/*  ))}*/}
-
-          {/*</Tabs>*/}
-          {/*{tab.categoryId === 4 ? (*/}
-          {/*    <>*/}
-          {/*    <div style={{ width: "0.438rem",*/}
-          {/*        height: "0.438rem",*/}
-          {/*        backgroundColor: theme.palette.primary.main,*/}
-          {/*        margin: "0  0"}}/>*/}
-          {/*    <span style={{*/}
-          {/*        width: "2.25rem",*/}
-          {/*        height: "1.375rem",*/}
-          {/*        margin: "0.375rem 0 0 0.313rem",*/}
-          {/*        fontFamily: "NanumSquare",*/}
-          {/*        fontSize: "1.25rem",*/}
-          {/*        fontWeight: 800,*/}
-          {/*        fontStretch: "normal",*/}
-          {/*        fontStyle: "normal",*/}
-          {/*        lineHeight: "normal",*/}
-          {/*        letterSpacing: "normal",*/}
-          {/*        textAlign: "left",*/}
-          {/*    }}>인기</span>*/}
-          {/*    </>) :"" }*/}
           {renderCategory(tabList, tab)}
       </Box>
-        <Box>
+        <Box paddingTop={"1.5rem"}>
         {boardList.map((board) => (
           <Content
             key={board.postId}

@@ -14,7 +14,6 @@ import { TOPBAR_HEIGHT } from "../../config/layout";
 import Box from "@mui/material/Box";
 import history from "history/browser";
 import { theme } from "../../theme";
-import { SearchOutlined } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "src/store/slices/userSlice";
@@ -75,7 +74,6 @@ const Topbar = () => {
       sx={{
         backgroundColor: theme.palette.background.default,
         boxShadow: "none",
-
       }}
     >
       <Box
@@ -85,6 +83,7 @@ const Topbar = () => {
           justifyContent: "space-between",
           paddingLeft: "1rem",
           paddingRight: "1rem",
+          width: "100vw",
           display: isSearchClicked ? "none" : "flex",
         }}
       >
@@ -97,10 +96,26 @@ const Topbar = () => {
                   component={"img"}
                   src={"/images/back.svg"}
                   alt={"back to Appbar"}
+sx={{
+  width: "0.8rem",
+  height: "1.4rem",
+  margin: "0.5rem 2.4rem 0.5rem 0",
+  objectFit: "contain",
+
+}}
                 />
               </IconButton>
-              <Typography variant={"h6"} color={"black"} sx={{ ml: 1 }}>
-                {selectedLocation || "역삼동"}
+              <Typography sx={{
+                fontFamily: "NanumSquare",
+                fontSize: "1.8rem",
+                fontWeight: "bold",
+                fontStretch: "normal",
+                fontStyle: "normal",
+                lineHeight: "normal",
+                letterSpacing: "normal",
+                textAlign: "left"
+              }}>
+                {selectedLocation}
               </Typography>
             </Box>
           ) : (
@@ -109,7 +124,7 @@ const Topbar = () => {
               src={"/images/with-local-logo.png"}
               alt={"logo"}
               onClick={() => navigate("/")}
-              style={{ width: "5.938rem", height: "1.313rem" }}
+              style={{ width: "9.5rem", height: "2.1rem" }}
             />
           )}
         </Box>
@@ -117,23 +132,24 @@ const Topbar = () => {
           <Box
             component={"img"}
             src={"/images/Location_H24.svg"}
-            style={{width: "1.023rem",
-              height: "1.023rem",
-              margin: "0 0.227rem 0 0"}}
+            style={{ width: "2.5rem",
+              marginRight: "1.2rem"}}
             onClick={(e) => handleLangClick(e)}
           />
-            <img src={"/images/IC_Search.svg"} alt={"search icon"}
-                 style={{width: "1.023rem",
-              height: "1.023rem",
-              margin: "0 0.227rem 0 0"}} />
+            <img src={"/images/IC_Search.png"} alt={"search icon"}
+                 style={{width: "2.5rem",
+              height: "2.5rem",
+              marginRight: "1.2rem"}}
+              onClick={()=> setIsSearchClicked(true)}
+            />
 
           <img
             src={"/images/IC_Hamburger.svg"}
             onClick={handleHamburgerClicked}
             alt="hamburger menu"
-            style={{width: "1.023rem",
-              height: "1.023rem",
-              margin: "0 0.227rem 0 0"}}
+            style={{width: "2.5rem",
+              height: "2.5rem",
+              }}
           />
         </Box>
       </Box>
@@ -148,16 +164,29 @@ const Topbar = () => {
               component={"img"}
               src={"/images/back.svg"}
               alt={"back to Appbar"}
+              sx={{
+                width: "0.8rem",
+                height: "1.4rem",
+                margin: "0.5rem 2.4rem 0.5rem 0",
+                objectFit: "contain",
+
+              }}
+
             />
           </IconButton>
           <TextField
             autoFocus
             sx={{
               width: "75vw",
-              "& .css-17s7jup-MuiInputBase-root-MuiOutlinedInput-root": {
-                borderRadius: "40px",
-                backgroundColor: "#FFFFFF",
+              backgroundColor: "white",
+              borderRadius: 40,
+              "& .css-1h28jlc-MuiOutlinedInput-notchedOutline" : {
+                borderRadius: 40,
+
               },
+              "& MuiBox-root.css-1vr2anf": {
+                borderRadius: 40,
+              }
             }}
             size={"small"}
             placeholder={"무엇이 궁금하신가요?"}
@@ -165,7 +194,8 @@ const Topbar = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position={"end"}>
-                  <Box component={"img"} src={"/images/IC_Search.svg"} />
+                  <Box component={"img"} src={"/images/IC_Search.png"} sx={{width: "1.5rem",
+                    height: "1.5rem",}} />
                 </InputAdornment>
               ),
             }}

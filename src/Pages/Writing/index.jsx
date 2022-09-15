@@ -131,7 +131,7 @@ const Writing = () => {
     >
       <Topbar address={address} />
       <Box
-        sx={{ bg: "#ffffff", pt: "1.875rem" }}
+        sx={{ bg: "#ffffff", pt: "3rem" }}
         display={"flex"}
         flexDirection={"column"}
       >
@@ -140,9 +140,9 @@ const Writing = () => {
           variant={"outlined"}
           margin={"dense"}
           sx={{
-            height: "2.25rems",
             width: "fit-content",
-            mb: "1.563rem",
+            height: "3.6rem",
+            mb: "1.8rem",
             "& .css-18dg0t2-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
               {
                 pl: 2,
@@ -178,7 +178,7 @@ const Writing = () => {
           />
         </form>
         <Box
-          sx={{ bg: "grey", width: "auto", height: "2.5rem" }}
+          sx={{ backgroundColor: "#fafafa", width: "auto", height: "4srem" }}
           display={"flex"}
           alignItems={"center"}
           justifyContent={"space-between"}
@@ -193,10 +193,20 @@ const Writing = () => {
             hidden
             onChange={(e) => handleImageUpload(e)}
           />
-          <Button onClick={onImageUploadButtonClick}>이미지 업로드</Button>
+          <img src={`/images/Group 50886.svg`} onClick={onImageUploadButtonClick} sx={{width: "8.6rem",
+            height: "2.4rem", objectFit: "contain"}}/>
         </Box>
-        <Box>
+        <Box sx={{  display: "fixed", position: "absolute", bottom: 1,  borderRadius: "8px",
+          boxShadow: "0 -20px 10px 0 rgba(0, 0, 0, 0.03)"}}>
           <Button
+              sx={
+              {width: "31rem",
+                height:" 4.8rem",
+                margin: 3,
+                borderRadius: "8px",
+                backgroundColor: "#6088f6",
+                fontSize: "1.6rem"
+              }}
             type="submit"
             variant="contained"
             size="large"

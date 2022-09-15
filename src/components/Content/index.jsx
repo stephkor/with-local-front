@@ -58,21 +58,20 @@ const Content = ({
   };
 
   return (
-    <Card sx={{ padding: "1rem",  mt: "0.75rem", boxShadow: "none", borderRadius: "none", height: "10.25rem", }} onClick={onClick} >
+    <Card sx={{ padding: "1.6rem 1.15rem 1.2rem 1.2rem" ,  mt: "1.2rem", boxShadow: "none", borderRadius: "none", height: "17.8rem", }} onClick={onClick} >
       <ContentBadge desc={desc} />
       <CardContent
         sx={{
           fontFamily: "NanumSquare",
-          fontSize: "0.75rem",
+          fontSize: "14px",
           fontWeight: "bold",
           fontStretch: "normal",
           fontStyle: "normal",
           lineHeight: 1.71,
           letterSpacing: "normal",
-          textAlign: "left",
+          textAlign: "left", height:"7.7rem",
           p: 0,
-          width: "auto",
-          height: "4.813rem",
+          width: "28.6rem",
           overflow: "hidden"
         }}
       >
@@ -95,7 +94,7 @@ const Content = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: "2.625rem",
+          height: "4.2rem",
             padding: 0
         }}
       >
@@ -103,32 +102,30 @@ const Content = ({
         <Box  display={"flex"} alignItems={"center"} p={0}>
             <Box display={"flex"} alignItems={"center"} p={0}>
             <img
-                style={{width: "1.125rem",
-                    height: "1.125rem",
-                    margin: "0 0.125rem 0 0",
+                style={{width: "1.8rem",
+                    height: "1.8rem",
                     objectFit: "contain"}}
               src={
                 userLiked ? "/images/IC_heart_fill.svg" : "/images/IC_heart.svg"
               }
               alt={"like icon"}
             />
-                <Typography fontSize={"0.625rem"} sx={{ marginRight: "0.125rem"}}>좋아요</Typography>
-            <Typography fontSize={"0.625rem"}>{userLikeNum}</Typography>
+                <Typography fontSize={"1rem"} sx={{ marginRight: "0.125rem"}}>좋아요</Typography>
+            <Typography fontSize={"1rem"}>{userLikeNum}</Typography>
         </Box>
             <Box display={"flex"} alignItems={"center"}>
 
-              <img src={"/images/IC_comment_H18.svg"} alt={"comment icon"} onClick={onClickCommentIcon} style={{width: "1.125rem",
-                  height: "1.125rem",
+              <img src={"/images/IC_comment_H18.svg"} alt={"comment icon"} onClick={onClickCommentIcon} style={{width: "1.8rem",
+                  height: "1.8rem",
                   margin: "0 0.125rem 0 0",
-
                   objectFit: "contain"}} />
 
-              <Typography fontSize={"0.625rem"} sx={{ marginRight: "0.125rem"}}>댓글</Typography>
-            <Typography fontSize={"0.625rem"}>{userCommentNum}</Typography>
+              <Typography fontSize={"1rem"} sx={{ marginRight: "0.125rem"}}>댓글</Typography>
+            <Typography fontSize={"1rem"}>{userCommentNum}</Typography>
             </Box>
         </Box>
         <Box>
-          <Typography fontSize={"0.625rem"}>{handleCreatedAt()}</Typography>
+          <Typography fontSize={"1rem"}>{handleCreatedAt()}</Typography>
         </Box>
 
       </CardActions>
