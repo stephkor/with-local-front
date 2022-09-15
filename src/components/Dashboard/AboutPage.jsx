@@ -6,7 +6,7 @@ import { theme } from "src/theme";
 
 const AboutPage = () => {
   return (
-    <Box sx={{ width: "100vw", height: "100vh" }}>
+    <Box sx={{ width: "100%", height: "100vh" }}>
       <AppBar
         sx={{
           backgroundColor: theme.palette.background.default,
@@ -26,6 +26,7 @@ const AboutPage = () => {
             <IconButton onClick={() => history.back()}>
               <Box
                 component={"img"}
+                sx={{width: "100%"}}
                 src={"/images/back.svg"}
                 alt={"back to Appbar"}
               />
@@ -34,7 +35,7 @@ const AboutPage = () => {
         </Box>
       </AppBar>
       <Box>
-        <Box sx={{ width: "100vw" }} component="img" src="/images/with-local-intro.png" />
+        <Box sx={{ width: "100vw" }} component="img" src="/images/about.png" />
       </Box>
     </Box>
   );
