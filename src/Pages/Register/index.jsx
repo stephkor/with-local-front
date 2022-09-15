@@ -104,8 +104,7 @@ const Login = () => {
             name="password"
             type="password"
             label="비밀번호"
-            sx={{ "& .css-30ojto-MuiInputBase-input-MuiOutlinedInput-input" : {fontFamily: "auto"}}}
-
+            sx={{ "& .MuiOutlinedInput-input" : {fontFamily: "auto"}}}
             error={!!(formik.touched.password && formik.errors.password)}
             helperText={
               formik.touched.password && formik.errors.password
