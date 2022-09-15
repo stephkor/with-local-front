@@ -117,7 +117,7 @@ const Writing = () => {
     setImages(files);
   };
 
-  console.log(selectedCategory)
+
 
 
   return (
@@ -193,7 +193,7 @@ const Writing = () => {
             hidden
             onChange={(e) => handleImageUpload(e)}
           />
-          <img src={`/images/Group 50886.svg`} onClick={onImageUploadButtonClick} sx={{width: "8.6rem",
+          <img src={`/images/Group 50886.svg`} alt={"logo"} onClick={onImageUploadButtonClick} sx={{width: "8.6rem",
             height: "2.4rem", objectFit: "contain"}}/>
         </Box>
         <Box sx={{  display: "fixed", position: "absolute", bottom: 1,  borderRadius: "8px",
