@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import { theme } from "src/theme";
 import { styled } from "@mui/system";
 import Content from "../../components/Content";
-import { MenuItem, TextField, Typography, IconButton } from "@mui/material";
+import { MenuItem, TextField,Input, Typography, IconButton , Select} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getGuAddress } from "../../apis/addressApis";
 import { setSelectedLocation } from "../../store/slices/locationSlice";
@@ -216,24 +216,20 @@ const Main = () => {
               sx={{marginBottom: "2.626rem", }}
 
           >
-              <TextField
-                  select
+              <Select
+                  id={"select"}
                   value={currentGu !== "" ? currentGu : selectedLocation}
                   variant={"standard"}
                   onChange={handleCurrentGu}
                   sx={{
                       borderBottom: "none",
-                      "& .css-euzdch-MuiInputBase-root-MuiInput-root:before" :{
-                          borderBottom: "none"
-                  },
                       "& p": {
                           fontStyle: theme.typography.h3,
                           fontSize: "2.4rem"
                       },
-                      "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
-                          {
-                              borderBottom: "none",
-                          },
+                      "& :before" : {
+                          borderBottom: "none"
+                      }
                   }}
               >
                   {guList.map((list) => (
@@ -241,7 +237,7 @@ const Main = () => {
                           <Typography>{list?.gu}</Typography>
                       </MenuItem>
                   ))}
-              </TextField>
+              </Select>
               <IconButton
                   onClick={onClickWriting}
                   sx={{ bg: "#ffffff" ,     width: "6.9rem",
