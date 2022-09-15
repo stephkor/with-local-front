@@ -4,7 +4,7 @@ import palette from "./palette";
 const customTypography = createTypography(palette, {
   fontFamily: [
     "NanumSquare",
-    "FuturaBT-BoldCondensedItalic, Futura BdCn BT",
+    "FuturaBT-BoldCondensedItalic, Futura BdCn BT", "Barlow",
   ].join(","),
   h1: {
     color: palette.text.primary,

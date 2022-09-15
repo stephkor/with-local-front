@@ -10,7 +10,6 @@ import { persistStore } from "redux-persist";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./App.css";
-import "semantic-ui-css/semantic.min.css";
 
 import AppRoutes from "./AppRoutes";
 

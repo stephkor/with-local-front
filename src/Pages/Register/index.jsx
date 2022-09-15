@@ -27,8 +27,7 @@ const Login = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .max(50, "최대 50자 까지 입력할 수 있습니다.")
+      email: Yup.string().email("이메일 형식으로 입력해 주세요").max(50, "최대 50자 까지 입력할 수 있습니다.")
         .required("아이디를 입력해주세요."),
       password: Yup.string()
         .max(50, "최대 50자 까지 입력할 수 있습니다.")
@@ -105,8 +104,8 @@ const Login = () => {
             name="password"
             type="password"
             label="비밀번호"
-            sx={{ color: "black" }}
-            autoComplete="current-password"
+            sx={{ "& .css-30ojto-MuiInputBase-input-MuiOutlinedInput-input" : {fontFamily: "auto"}}}
+
             error={!!(formik.touched.password && formik.errors.password)}
             helperText={
               formik.touched.password && formik.errors.password

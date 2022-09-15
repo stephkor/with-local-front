@@ -28,9 +28,10 @@ const Writing = () => {
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const address = useSelector((state) => state.location.selectedLocation);
   const { lang } = useSelector((state) => state.lang);
-  const [selectedCategory, setSelectedCategory] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState(    { categoryId: 1, text: lang === "ko" ? "동네맛집" : lang=== "jp" ? "近所グルメ" : "I need help!"},
+  );
   const [categoryList, setCategoryList] = useState([
-    { categoryId: 1, text: "동네맛집" },
+    { categoryId: 1, text: lang === "ko" ? "동네맛집" : lang=== "jp" ? "近所グルメ" : "I need help!"},
   ]);
 
   const formik = useFormik({
@@ -47,8 +48,10 @@ const Writing = () => {
       const selected = selectedCategory.categoryId;
       const title = "";
       let formData = new FormData();
+
       for (let i = 0; i < images.length; i++) {
         formData.append("files[]", images[i]);
+
       }
       for (let value of formData.values()) {
         console.log(value);
@@ -78,7 +81,6 @@ const Writing = () => {
         const list = res?.data.data;
 
         setCategoryList(list);
-        setSelectedCategory(list[0]);
       } catch (e) {
         console.log(e);
       }
@@ -115,6 +117,9 @@ const Writing = () => {
     setImages(files);
   };
 
+  console.log(selectedCategory)
+
+
   return (
     <Box
       sx={{
@@ -126,7 +131,7 @@ const Writing = () => {
     >
       <Topbar address={address} />
       <Box
-        sx={{ bg: "#ffffff", pt: "1.875rem" }}
+        sx={{ bg: "#ffffff", pt: "3rem" }}
         display={"flex"}
         flexDirection={"column"}
       >
@@ -135,9 +140,9 @@ const Writing = () => {
           variant={"outlined"}
           margin={"dense"}
           sx={{
-            height: "2.25rems",
             width: "fit-content",
-            mb: "1.563rem",
+            height: "3.6rem",
+            mb: "1.8rem",
             "& .css-18dg0t2-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
               {
                 pl: 2,
@@ -145,7 +150,7 @@ const Writing = () => {
                 pb: 1,
               },
           }}
-          value={selectedCategory.text}
+          defaultValue={selectedCategory.text}
           onChange={handleChangeCategory}
         >
           {categoryList.map((list, i) => (
@@ -173,7 +178,7 @@ const Writing = () => {
           />
         </form>
         <Box
-          sx={{ bg: "grey", width: "auto", height: "2.5rem" }}
+          sx={{ backgroundColor: "#fafafa", width: "auto", height: "4srem" }}
           display={"flex"}
           alignItems={"center"}
           justifyContent={"space-between"}
@@ -188,10 +193,20 @@ const Writing = () => {
             hidden
             onChange={(e) => handleImageUpload(e)}
           />
-          <Button onClick={onImageUploadButtonClick}>이미지 업로드</Button>
+          <img src={`/images/Group 50886.svg`} onClick={onImageUploadButtonClick} sx={{width: "8.6rem",
+            height: "2.4rem", objectFit: "contain"}}/>
         </Box>
-        <Box>
+        <Box sx={{  display: "fixed", position: "absolute", bottom: 1,  borderRadius: "8px",
+          boxShadow: "0 -20px 10px 0 rgba(0, 0, 0, 0.03)"}}>
           <Button
+              sx={
+              {width: "31rem",
+                height:" 4.8rem",
+                margin: 3,
+                borderRadius: "8px",
+                backgroundColor: "#6088f6",
+                fontSize: "1.6rem"
+              }}
             type="submit"
             variant="contained"
             size="large"

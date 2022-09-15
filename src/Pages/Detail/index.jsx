@@ -31,6 +31,7 @@ import {
   postMark,
   postCommentLike,
 } from "../../apis/boardApis";
+import {theme} from "../../theme";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
@@ -72,7 +73,7 @@ const Detail = () => {
     setOpenReply(true);
   };
 
-  const drawerBleeding = 53;
+  const drawerBleeding = 50;
   const [userLiked, setUserLiked] = useState(isLiked);
   const [userLikeNum, setUserLikeNum] = useState(likeCount);
   const userCommentNum = commentCount;
@@ -132,6 +133,8 @@ const Detail = () => {
   };
 
   const onClickLike = async () => {
+    if (!isLoggedIn) setIsLoginModalOpen(true)
+    else
     try {
       const res = await postLike(postId);
 
@@ -146,6 +149,8 @@ const Detail = () => {
   };
 
   const onClickCommentLike = async (postId, commentId) => {
+    if (!isLoggedIn) setIsLoginModalOpen(true)
+    else
     try {
       await postCommentLike(postId, commentId);
       setEffectUpdate((effectUpdate) => !effectUpdate);
@@ -156,6 +161,8 @@ const Detail = () => {
   };
 
   const onClickMark = async () => {
+    if (!isLoggedIn) setIsLoginModalOpen(true)
+    else
     try {
       await postMark(postId);
 
@@ -212,14 +219,14 @@ const Detail = () => {
       <Topbar address={address} />
       <Box
         sx={{
-          padding: 3,
+          padding: "1.6rem",
         }}
       >
         <ContentBadge desc={category} />
         <CardContent
           sx={{
             fontFamily: "NanumSquare",
-            fontSize: "0.875rem",
+            fontSize: "1.4rem",
             fontWeight: "bold",
             fontStretch: "normal",
             fontStyle: "normal",
@@ -227,7 +234,7 @@ const Detail = () => {
             letterSpacing: "normal",
             textAlign: "left",
             p: 0,
-            height: 300,
+            minHeight: "16.3rem",
             display: "flex",
             justifyContent: "space-between",
             flexDirection: "column",
@@ -254,11 +261,12 @@ const Detail = () => {
             justifyContent: "space-between",
             p: 0,
             pt: 0.5,
+            height: "4rem",
           }}
         >
-          <Box sx={{ p: 0 }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton
-              size={"small"}
+              sx={{width: "2.4rem", height: "2.4rem"}}
               color={isLiked ? "primary" : "default"}
               onClick={onClickLike}
             >
@@ -267,49 +275,49 @@ const Detail = () => {
                   userLiked
                     ? "/images/IC_heart_fill.svg"
                     : "/images/IC_heart.svg"
-                }
+                } style={{
+                width: "1.8rem",
+                height: "1.575rem"
+              }}
                 alt={"like icon"}
               />
-              <Typography>{userLikeNum}</Typography>
             </IconButton>
-            <IconButton size={"small"} onClick={toggleDrawer(true)}>
-              <Icon>
-                <img src={"/images/IC_comment_H18.svg"} alt={"comment icon"} />
-                <Typography>댓글</Typography>
-              </Icon>
-              <Typography>{userCommentNum}</Typography>
+            <Typography sx={{ fontSize: "1rem"}}>{userLikeNum}</Typography>
+            <IconButton sx={{width: "2.4rem", height: "1.4rem"}} onClick={toggleDrawer(true)}>
+                <img src={"/images/IC_comment_H18.svg"} alt={"comment icon"} style={{
+                  width: "1.8rem",
+                  height: "1.575rem"
+                }} />
             </IconButton>
+            <Typography sx={{ fontSize: "1rem"}}>{userCommentNum}</Typography>
           </Box>
           <Box display="flex" alignItems="center">
-            <Typography>{handleCreatedAt()}</Typography>
+            <Typography sx={{fontSize: "1rem"}}>{handleCreatedAt()}</Typography>
             <IconButton onClick={onClickMark}>
               <BookmarkIcon color={isMarked ? "primary" : "disabled"} />
-              <Typography>저장하기</Typography>
+              <Typography sx={{fontSize: "1rem"}}>저장하기</Typography>
             </IconButton>
           </Box>
         </CardActions>
         <Divider />
-        <Box>
+        <Box  sx={{ backgroundColor: theme.palette.background.default,
+        }}>
+          <Box padding={"1rem"}>
           {comment &&
             comment.map((comm, i) => (
-              <Box sx={{ width: "100vw" }}>
-                <Box sx={{ padding: 2 }}>
-                  <Typography key={i}>{comm.text}</Typography>
-                  <Typography variant="caption">{comm.createdAt}</Typography>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent={"space-between"}
-                    pr={3}
-                  >
-                    <Button
-                      variant="caption"
-                      onClick={onClickReply(true, comm.commentId)}
-                    >
-                      reply
-                    </Button>
+              <Box>
+                <Box p={0}>
+                  <Typography key={i}  sx={{ fontSize: "1.4rem", lineHeight: 1.43 }}>{comm.text}</Typography>
+                  <Typography key={i}  sx={{ fontSize: "1.4rem", fontWeight: "bold", lineHeight:  1.43}}>{comm.username}</Typography>
+                  <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"} p={0}>
+                    <Box>
+                      <Typography variant="caption"  sx={{ fontSize: "1.4rem", lineHeight: 1.43}}>{comm.createdAt}</Typography>
+                      <Button variant="caption" sx={{ fontSize: "1.4rem", padding : 0}} onClick={onClickReply(true, comm.commentId)}>
+                        reply
+                      </Button>
+                    </Box>
                     <IconButton
-                      size={"small"}
+                      sx={{p:0}}
                       onClick={() => {
                         onClickCommentLike(postId, comm.commentId);
                       }}
@@ -321,6 +329,10 @@ const Detail = () => {
                             : "/images/IC_heart.svg"
                         }
                         alt={"like icon"}
+                        style={{
+                          width: "1.327rem",
+                          height: "1.161rem"
+                        }}
                       />
                     </IconButton>
                   </Box>
@@ -330,8 +342,8 @@ const Detail = () => {
                         sx={{ pl: 2, display: "flex", alignItems: "center" }}
                       >
                         <SubdirectoryArrowRightIcon fontSize="small" />
-                        <Typography pr={1}>{repl.text}</Typography>
-                        <Typography variant="caption">
+                        <Typography pr={1}  sx={{ fontSize: "1.4rem"}}>{repl.text}</Typography>
+                        <Typography variant="caption"  sx={{ fontSize: "1rem"}}>
                           {repl.createdAt}
                         </Typography>
                       </Box>
@@ -339,6 +351,42 @@ const Detail = () => {
                 </Box>
               </Box>
             ))}
+          </Box>
+        </Box>
+        <Box sx={{  display: "fixed", position: "absolute", bottom: 1,  borderRadius: "8px", paddingTop: 2, pb: 2,
+          boxShadow: "0 -20px 10px 0 rgba(0, 0, 0, 0.03)"}}>
+          <Box display={"flex"} alignItems={"center"} sx={{width: "100%",  }}>
+          <IconButton
+              sx={{ width: "2.4rem",
+                height: "2.4rem",
+             }}
+              color={isLiked ? "primary" : "default"}
+              onClick={onClickLike}
+          >
+            <img
+                src={
+                  userLiked
+                      ? "/images/IC_heart_fill.svg"
+                      : "/images/IC_heart.svg"
+                } style={{
+              width: "2.4rem",
+              height: "2.4rem",
+            }}
+                alt={"like icon"}
+            />
+          </IconButton>
+          <Button
+              sx={{width: "31rem",
+                height:" 4.8rem",
+                margin: "0 0 0 0.8rem",
+                borderRadius: "8px",
+                backgroundColor: "#6088f6"}}
+              variant="contained"
+              onClick={toggleDrawer(true)}
+          >
+            댓글 쓰기
+          </Button>
+          </Box>
         </Box>
         <div>
           {open && (
@@ -352,13 +400,19 @@ const Detail = () => {
               ModalProps={{
                 keepMounted: true,
               }}
+              sx={{ ".MuiPaper-root": {
+                  borderTopLeftRadius: "8px",
+                  borderTopRightRadius: "8px",
+                },
+                "& .MuiBox-root css-1mq41j": {
+                height: "25.5rem"
+                }
+            }}
             >
               <StyledBox
                 sx={{
                   position: "absolute",
                   top: -drawerBleeding,
-                  borderTopLeftRadius: 8,
-                  borderTopRightRadius: 8,
                   visibility: "visible",
                   right: 0,
                   left: 0,
@@ -366,10 +420,7 @@ const Detail = () => {
               ></StyledBox>
               <StyledBox
                 sx={{
-                  px: 2,
-                  pb: 2,
-                  pt: 2,
-                  height: 140,
+                  p: "1rem",
                   overflow: "auto",
                   display: "flex",
                   flexDirection: "column",
@@ -378,23 +429,28 @@ const Detail = () => {
                 <TextField
                   multiline
                   rows={4}
+                  sx={{ fontSize: "1.2rem", p: "1.2rem"
+                  }}
                   placeholder="타인을 존중하는 말 한마디가 상대방에게 큰 힘이 됩니다!"
                   onChange={(e) => setCommentText(e.target.value)}
                 />
+                <Box sx={{ paddingTop: "1rem"}}>
+                  <Button
+                    sx={{height: "4.8rem", margin: "auto", width: "100%", backgroundColor: "#6088f6"}}
+                    variant="contained"
+                    onClick={() => {
+                    if (openReply) {
+                      handleReplySubmit();
+                      } else {
+                      handleSubmit();
+                      }
+                    toggleDrawer(false);
+                    }}
+                    >
+                      댓글 쓰기
+                  </Button>
+                </Box>
               </StyledBox>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  if (openReply) {
-                    handleReplySubmit();
-                  } else {
-                    handleSubmit();
-                  }
-                  toggleDrawer(false);
-                }}
-              >
-                댓글 쓰기
-              </Button>
             </SwipeableDrawer>
           )}
         </div>

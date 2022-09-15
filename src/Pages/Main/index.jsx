@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useCallback} from "react";
 import Card from "@mui/material/Card";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -17,13 +17,18 @@ import { setContentInfo } from "../../store/slices/contentSlice";
 import LoginModal from "src/components/LoginModal";
 
 const StyledTab = styled(Tab)({
-  fontSize: "0.9rem",
-  color: theme.palette.point.browngrey,
-  paddingRight: "1.25rem",
-  paddingLeft: 0,
-  maxWidth: "8rem",
-  minWidth: "3.725rem",
-  textAlign: "left",
+    width: "5.8rem",
+    height: "1.8rem",
+    fontFamily: "NanumSquare",
+    fontSize: "1.6rem",
+    fontWeight: "bold",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "normal",
+    textAlign: "left",
+   // pr: "1.875rem",
+    padding: 0
 });
 
 const Main = () => {
@@ -32,12 +37,14 @@ const Main = () => {
   const { selectedLocation } = useSelector((state) => state.location);
   const navigate = useNavigate();
   const [tabList, setTabList] = useState([{ categoryId: 1, text: "동네맛집" }]);
-  const [tab, setTab] = React.useState({ categoryId: 1, text: "동네맛집" });
+  const [tab, setTab] = React.useState({ categoryId: 4, text: "인기" });
   const [boardList, setBoardList] = useState([]);
   const [guList, setGuList] = useState([]);
   const [currentGu, setCurrentGu] = useState(selectedLocation);
   const { isLoggedIn } = useSelector((state) => state.user);
-  // const [content, setContent] = useState({});
+
+
+
 
   const handleCurrentGu = (e) => {
     setCurrentGu(e.target.value);
@@ -49,7 +56,8 @@ const Main = () => {
 
     if (!isLoggedIn) {
       setIsLoginModalOpen(true);
-    } else navigate("/writing");
+    } else
+    navigate("/writing");
   };
 
   const onClickContent = (e, board) => {
@@ -61,6 +69,92 @@ const Main = () => {
   };
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const renderCategory = useCallback((tabList, tab) => {
+       if(tabList.length === 3)  tabList.unshift({categoryId: 4, text: "인기"})
+
+      const selected = tabList.length === 4 && tabList.find((list)=> list.categoryId === tab.categoryId)
+
+
+      return (
+          <Box sx={{ width: '100%' }}>
+
+          <Tabs
+                  sx={{
+                      padding: 0,
+                      minHeight: "1.75rem",
+                      color: "black",
+                      textAlign: "left",
+                      "& :after": {
+                          display: "none"
+                      },
+                      ".css-1d5hna4-MuiButtonBase-root-MuiTab-root.Mui-selected" : {
+                          color: "black"
+                      },
+                      "& :last-child": {
+                          paddingRight: 0,
+                          paddingLeft: 0,
+                      },
+                      "& .MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller": {
+                          width: "100%"
+                      },
+
+                      "& .MuiTabs-indicator": { display: "none" },
+                      "& div.MuiInputBase-root.Mui-focused:after": {display: "none"},
+                      "& div.MuiInputBase-root-MuiInput-root:after": {
+                          display: "none"
+                      },
+                      "& button" : {
+                          minWidth: "fit-content"
+                      },
+                      "& div.MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer": {
+                          width: "100%",
+                      }
+                  }}
+                  value={tab.text}
+                  onChange={(e, newValue) => {
+                      setTab({
+                          categoryId: parseInt(e.target.id),
+                          text: newValue,
+                      });
+                  }}
+                  textColor="primary"
+                  variant="fullWidth"
+
+          >
+                {tabList.map((list) =>{
+                    return  (selected.categoryId === list.categoryId) ? (
+                        <>
+                        <div style={{
+                            textAlign: "bottom",
+                            width: "0.7rem",
+                            height: "0.7rem",
+                            backgroundColor: theme.palette.primary.main,
+                            margin: "0"}}
+                         />
+                        <Tab
+                            class="selectedTab"
+                            id={list.categoryId.toString()}
+                              key={list.categoryId}
+                              value={list.text}
+                              label={list.text} />
+                        </>):
+                  (<StyledTab
+                      id={list.categoryId.toString()}
+                      key={list.categoryId}
+                      value={list.text}
+                      label={list.text}>{list.text}</StyledTab>)}
+         )}
+              </Tabs>
+          </Box>
+      )
+  },[])
+
+
+
+
+
+
 
   useEffect(() => {
     const requestData = async () => {
@@ -96,99 +190,75 @@ const Main = () => {
   return (
     <Card
       sx={{
-        backgroundColor: theme.palette.background.default,
-        boxShadow: "none",
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
-        height: "100vh",
-        overflow: "scroll",
-        pb: 3,
-      }}
+            backgroundColor: theme.palette.background.default,
+            boxShadow: "none",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            height: "100vh",
+            overflowY: "scroll",
+            paddingTop: "1.875rem",
+            pb: 3,
+          margin: 0,
+        "& ::-webkit-scrollbar": {
+              display: "none"
+        }
+          }}
     >
       <Box
         sx={{
-          width: "21.438rem",
           bg: theme.palette.background.default,
         }}
       >
-        <Tabs
-          sx={{
-            padding: 0,
-            margin: 0,
-            "& :last-child": {
-              paddingRight: 0,
-              paddingLeft: 0,
-            },
-            ".MuiTabs-indicator": { display: "none" },
-          }}
-          value={tab.text}
-          onChange={(e, newValue) => {
-            setTab({
-              categoryId: parseInt(e.target.id),
-              text: newValue,
-            });
-          }}
-          textColor="primary"
-        >
-          {tabList.map((list) => (
-            <StyledTab
-              id={list.categoryId.toString()}
-              key={list.categoryId}
-              value={list.text}
-              label={list.text}
-            />
-          ))}
-          <StyledTab
-            id={"4"}
-            key={4}
-            value={"인기"}
-            label={"인기"}
-            onClick={(e) => setTab({ categoryId: 4, text: "인기" })}
-          />
-        </Tabs>
-      </Box>
-      <Box>
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-          p={1}
-        >
-          <TextField
-            select
-            value={currentGu !== "" ? currentGu : selectedLocation}
-            variant={"standard"}
-            onChange={handleCurrentGu}
-            sx={{
-              borderBottom: "none",
-              "& p": {
-                fontStyle: theme.typography.h3,
-              },
-              "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
-                {
-                  borderBottom: "none",
-                },
-            }}
-          >
-            {guList.map((list) => (
-              <MenuItem key={list.gu} value={list?.gu}>
-                <Typography>{list?.gu}</Typography>
-              </MenuItem>
-            ))}
-          </TextField>
-          <IconButton
-            size={"small"}
-            onClick={onClickWriting}
-            sx={{ bg: "#ffffff" }}
-          >
-            <Box
-              component={"img"}
-              src={"/images/Bottons_Posting_H27.png"}
-              sx={{ width: "4.313rem", height: "1.5rem" }}
-            />
-          </IconButton>
-        </Box>
+          <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              sx={{marginBottom: "2.626rem", }}
 
+          >
+              <TextField
+                  select
+                  value={currentGu !== "" ? currentGu : selectedLocation}
+                  variant={"standard"}
+                  onChange={handleCurrentGu}
+                  sx={{
+                      borderBottom: "none",
+                      "& .css-euzdch-MuiInputBase-root-MuiInput-root:before" :{
+                          borderBottom: "none"
+                  },
+                      "& p": {
+                          fontStyle: theme.typography.h3,
+                          fontSize: "2.4rem"
+                      },
+                      "& .css-17o7sbu-MuiInputBase-root-MuiInput-root:before, .css-17o7sbu-MuiInputBase-root-MuiInput-root:after":
+                          {
+                              borderBottom: "none",
+                          },
+                  }}
+              >
+                  {guList.map((list) => (
+                      <MenuItem key={list.gu} value={list?.gu}>
+                          <Typography>{list?.gu}</Typography>
+                      </MenuItem>
+                  ))}
+              </TextField>
+              <IconButton
+                  onClick={onClickWriting}
+                  sx={{ bg: "#ffffff" ,     width: "6.9rem",
+                      height: "2.4rem"}}
+              >
+                  <Box
+                      component={"img"}
+                      src={"/images/Bottons_Posting_H27.png"}
+                      sx={{  width: "6.9rem",
+                          height: "2.4rem" }}
+                  />
+              </IconButton>
+          </Box>
+
+          {renderCategory(tabList, tab)}
+      </Box>
+        <Box paddingTop={"1.5rem"}>
         {boardList.map((board) => (
           <Content
             key={board.postId}
