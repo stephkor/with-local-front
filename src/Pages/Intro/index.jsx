@@ -54,6 +54,7 @@ const Intro = () => {
   }
 
 
+
   return (
     <Box
       style={{
@@ -134,7 +135,7 @@ const Intro = () => {
                 }}}
             select id="select"
             label="언어 선택"
-            defaultValue={"ko"}
+            defaultValue={"언어 선택"}
             variant={"standard"}
             onChange={handleLanguage}
             InputProps={{
@@ -143,7 +144,9 @@ const Intro = () => {
                       <Box component={"img"} src={"/images/Location_H24.svg"}/>
                   </InputAdornment>
               ),
-          }}>
+          }}
+          >
+              <MenuItem value={"언어 선택"}>언어선택</MenuItem>
             <MenuItem value={"ko"}>Korean</MenuItem>
             <MenuItem value={"jp"}>Japanese</MenuItem>
             <MenuItem value={"en"}>English</MenuItem>

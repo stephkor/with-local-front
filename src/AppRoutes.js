@@ -16,7 +16,7 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path={ROUTES.INTRO} index element={<Intro />} />
+        <Route path={ROUTES.INTRO} index element={<Intro />} />
         <Route path={ROUTES.ABOUT} element={<AboutPage />} />
         <Route
           path={"/"}
@@ -25,8 +25,8 @@ const AppRoutes = () => {
               <Outlet />
             </Dashboard>
           }
-        ><Route path={ROUTES.INTRO} index element={<Intro />} />
-
+        >
+          <Route  index element={<Intro />} />
           <Route path={ROUTES.REGISTER} element={<Register />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.MAIN} element={<Main />} />
