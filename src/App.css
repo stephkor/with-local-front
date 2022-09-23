@@ -30,12 +30,12 @@
 
 .selectedTab {
   height: 2.2rem;
-  margin: 0.6rem 0.4rem 0 0rem;
-  font-family: NanumSquare;
+  margin: 0.6rem 2.4rem 0 0rem;
+  font-family: NanumSquare, Barlow;
   font-size: 2rem;
   font-weight: 800;
   font-stretch: normal;
-  font-style: normal;
+  font-style: normal, italic;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
@@ -44,6 +44,27 @@
   background-color: #f2f3f8;
   border: none;
   -webkit-appearance: menulist-text;
+  overflow: scroll;
+}
+
+.selectedTabEng {
+  height: 2.8rem;
+  margin: 0.6rem 2.4rem 0 0rem;
+  font-family: Barlow;
+  font-size: 2rem;
+  font-weight: bolder;
+  font-stretch: normal;
+  font-style: italic;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: black;
+  min-height: auto;
+  padding: 0;
+  background-color: #f2f3f8;
+  border: none;
+  -webkit-appearance: menulist-text;
+  overflow: scroll;
 }
 
 .slick-dots li button:before {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState , useCallback} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Card from "@mui/material/Card";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -7,7 +7,14 @@ import Box from "@mui/material/Box";
 import { theme } from "src/theme";
 import { styled } from "@mui/system";
 import Content from "../../components/Content";
-import { MenuItem, TextField,Input, Typography, IconButton , Select} from "@mui/material";
+import {
+  MenuItem,
+  TextField,
+  Input,
+  Typography,
+  IconButton,
+  Select,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getGuAddress } from "../../apis/addressApis";
 import { setSelectedLocation } from "../../store/slices/locationSlice";
@@ -17,18 +24,17 @@ import { setContentInfo } from "../../store/slices/contentSlice";
 import LoginModal from "src/components/LoginModal";
 
 const StyledTab = styled(Tab)({
-    width: "5.8rem",
-    height: "1.8rem",
-    fontFamily: "NanumSquare",
-    fontSize: "1.6rem",
-    fontWeight: "bold",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
-    letterSpacing: "normal",
-    textAlign: "left",
-   // pr: "1.875rem",
-    padding: 0
+  width: "5.8rem",
+  height: "1.8rem",
+  fontSize: "1.6rem",
+  fontWeight: "bold",
+  fontStretch: "normal",
+  fontStyle: "normal",
+  lineHeight: "normal",
+  letterSpacing: "normal",
+  textAlign: "left",
+
+  paddingRight: "1.4rem",
 });
 
 const Main = () => {
@@ -43,9 +49,6 @@ const Main = () => {
   const [currentGu, setCurrentGu] = useState(selectedLocation);
   const { isLoggedIn } = useSelector((state) => state.user);
 
-
-
-
   const handleCurrentGu = (e) => {
     setCurrentGu(e.target.value);
     dispatch(setSelectedLocation(e.target.value));
@@ -56,8 +59,7 @@ const Main = () => {
 
     if (!isLoggedIn) {
       setIsLoginModalOpen(true);
-    } else
-    navigate("/writing");
+    } else navigate("/writing");
   };
 
   const onClickContent = (e, board) => {
@@ -70,91 +72,117 @@ const Main = () => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  const renderCategory = useCallback((tabList, tab) => {
-       if(tabList.length === 3)  tabList.unshift({categoryId: 4, text: "인기"})
+  const renderCategory = useCallback(
+    (tabList, tab) => {
+      console.log(lang);
+      if (tabList.length === 3)
+        lang === "ko"
+          ? tabList.unshift({ categoryId: 4, text: "인기" })
+          : lang === "en"
+          ? tabList.unshift({ categoryId: 4, text: "popular" })
+          : tabList.unshift({ categoryId: 4, text: "ひらがな" });
 
-      const selected = tabList.length === 4 && tabList.find((list)=> list.categoryId === tab.categoryId)
-
+      const selected =
+        tabList.length === 4 &&
+        tabList.find((list) => list.categoryId === tab.categoryId);
 
       return (
-          <Box sx={{ width: '100%' }}>
-
+        <Box sx={{ width: "100%" }}>
           <Tabs
-                  sx={{
-                      padding: 0,
-                      minHeight: "1.75rem",
-                      color: "black",
-                      textAlign: "left",
-                      "& :after": {
-                          display: "none"
-                      },
-                      ".css-1d5hna4-MuiButtonBase-root-MuiTab-root.Mui-selected" : {
-                          color: "black"
-                      },
-                      "& :last-child": {
-                          paddingRight: 0,
-                          paddingLeft: 0,
-                      },
-                      "& .MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller": {
-                          width: "100%"
-                      },
+            sx={{
+              padding: 0,
+              minHeight: "1.75rem",
+              color: "black",
+              textAlign: "left",
+              overflowX: "scroll",
+              "& :after": {
+                display: "none",
+              },
+              ".css-1d5hna4-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+                color: "black",
+              },
+              "& :last-child": {
+                paddingRight: 0,
+                paddingLeft: 0,
+              },
+              "& .MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller": {
+                width: "100%",
+              },
 
-                      "& .MuiTabs-indicator": { display: "none" },
-                      "& div.MuiInputBase-root.Mui-focused:after": {display: "none"},
-                      "& div.MuiInputBase-root-MuiInput-root:after": {
-                          display: "none"
-                      },
-                      "& button" : {
-                          minWidth: "fit-content"
-                      },
-                      "& div.MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer": {
-                          width: "100%",
-                      }
-                  }}
-                  value={tab.text}
-                  onChange={(e, newValue) => {
-                      setTab({
-                          categoryId: parseInt(e.target.id),
-                          text: newValue,
-                      });
-                  }}
-                  textColor="primary"
-                  variant="fullWidth"
-
+              "& .MuiTabs-indicator": { display: "none" },
+              "& div.MuiInputBase-root.Mui-focused:after": { display: "none" },
+              "& div.MuiInputBase-root-MuiInput-root:after": {
+                display: "none",
+              },
+              "& button": {
+                minWidth: "fit-content",
+              },
+              "& div.MuiTabs-flexContainer": {
+                width: "100%",
+                overflowX: "scroll",
+              },
+            }}
+            value={tab.text}
+            onChange={(e, newValue) => {
+              setTab({
+                categoryId: parseInt(e.target.id),
+                text: newValue,
+              });
+            }}
+            textColor="primary"
+            variant="fullWidth"
           >
-                {tabList.map((list) =>{
-                    return  (selected.categoryId === list.categoryId) ? (
-                        <>
-                        <div style={{
-                            textAlign: "bottom",
-                            width: "0.7rem",
-                            height: "0.7rem",
-                            backgroundColor: theme.palette.primary.main,
-                            margin: "0"}}
-                         />
-                        <Tab
-                            class="selectedTab"
-                            id={list.categoryId.toString()}
-                              key={list.categoryId}
-                              value={list.text}
-                              label={list.text} />
-                        </>):
-                  (<StyledTab
+            {tabList.map((list) => {
+              return selected.categoryId === list.categoryId ? (
+                <>
+                  <div
+                    style={{
+                      textAlign: "bottom",
+                      width: "0.7rem",
+                      height: "0.7rem",
+                      backgroundColor: theme.palette.primary.main,
+                      margin: "0",
+                      borderRadius: "4px",
+                    }}
+                  />
+                  {lang === "en" ? (
+                    <Tab
+                      class="selectedTabEng"
                       id={list.categoryId.toString()}
                       key={list.categoryId}
                       value={list.text}
-                      label={list.text}>{list.text}</StyledTab>)}
-         )}
-              </Tabs>
-          </Box>
-      )
-  },[])
-
-
-
-
-
-
+                      label={list.text}
+                    />
+                  ) : (
+                    <Tab
+                      class="selectedTab"
+                      id={list.categoryId.toString()}
+                      key={list.categoryId}
+                      value={list.text}
+                      label={list.text}
+                    />
+                  )}
+                </>
+              ) : (
+                <StyledTab
+                  id={list.categoryId.toString()}
+                  key={list.categoryId}
+                  value={list.text}
+                  label={list.text}
+                  sx={{
+                    fontFamily: lang === "en" ? "Barlow" : "NanumSquare",
+                  }}
+                >
+                  {list.text}
+                </StyledTab>
+              );
+            })}
+          </Tabs>
+        </Box>
+      );
+    },
+    [lang]
+  );
 
   useEffect(() => {
     const requestData = async () => {
@@ -190,71 +218,68 @@ const Main = () => {
   return (
     <Card
       sx={{
-            backgroundColor: theme.palette.background.default,
-            boxShadow: "none",
-            paddingLeft: "1rem",
-            paddingRight: "1rem",
-            height: "100vh",
-            overflowY: "scroll",
-            paddingTop: "1.875rem",
-            pb: 3,
-          margin: 0,
+        backgroundColor: theme.palette.background.default,
+        boxShadow: "none",
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
+        height: "100vh",
+        overflowY: "scroll",
+        paddingTop: "1.875rem",
+        pb: 3,
+        margin: 0,
         "& ::-webkit-scrollbar": {
-              display: "none"
-        }
-          }}
+          display: "none",
+        },
+      }}
     >
       <Box
         sx={{
           bg: theme.palette.background.default,
         }}
       >
-          <Box
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              sx={{marginBottom: "2.626rem", }}
-
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          sx={{ marginBottom: "2.626rem" }}
+        >
+          <Select
+            id={"select"}
+            value={currentGu !== "" ? currentGu : selectedLocation}
+            variant={"standard"}
+            onChange={handleCurrentGu}
+            sx={{
+              borderBottom: "none",
+              "& p": {
+                fontStyle: theme.typography.h3,
+                fontSize: "2.4rem",
+              },
+              "& :before": {
+                borderBottom: "none",
+              },
+            }}
           >
-              <Select
-                  id={"select"}
-                  value={currentGu !== "" ? currentGu : selectedLocation}
-                  variant={"standard"}
-                  onChange={handleCurrentGu}
-                  sx={{
-                      borderBottom: "none",
-                      "& p": {
-                          fontStyle: theme.typography.h3,
-                          fontSize: "2.4rem"
-                      },
-                      "& :before" : {
-                          borderBottom: "none"
-                      }
-                  }}
-              >
-                  {guList.map((list) => (
-                      <MenuItem key={list.gu} value={list?.gu}>
-                          <Typography>{list?.gu}</Typography>
-                      </MenuItem>
-                  ))}
-              </Select>
-              <IconButton
-                  onClick={onClickWriting}
-                  sx={{ bg: "#ffffff" ,     width: "6.9rem",
-                      height: "2.4rem"}}
-              >
-                  <Box
-                      component={"img"}
-                      src={"/images/Bottons_Posting_H27.png"}
-                      sx={{  width: "6.9rem",
-                          height: "2.4rem" }}
-                  />
-              </IconButton>
-          </Box>
+            {guList.map((list) => (
+              <MenuItem key={list.gu} value={list?.gu}>
+                <Typography>{list?.gu}</Typography>
+              </MenuItem>
+            ))}
+          </Select>
+          <IconButton
+            onClick={onClickWriting}
+            sx={{ bg: "#ffffff", width: "6.9rem", height: "2.4rem" }}
+          >
+            <Box
+              component={"img"}
+              src={"/images/Bottons_Posting_H27.png"}
+              sx={{ width: "6.9rem", height: "2.4rem" }}
+            />
+          </IconButton>
+        </Box>
 
-          {renderCategory(tabList, tab)}
+        {renderCategory(tabList, tab)}
       </Box>
-        <Box paddingTop={"1.5rem"}>
+      <Box paddingTop={"1.5rem"}>
         {boardList.map((board) => (
           <Content
             key={board.postId}

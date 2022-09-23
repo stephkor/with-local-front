@@ -28,10 +28,25 @@ const Writing = () => {
   const [isErrorDialogOpen, setIsErrorDialogOpen] = useState(false);
   const address = useSelector((state) => state.location.selectedLocation);
   const { lang } = useSelector((state) => state.lang);
-  const [selectedCategory, setSelectedCategory] = useState(    { categoryId: 1, text: lang === "ko" ? "동네맛집" : lang=== "jp" ? "近所グルメ" : "I need help!"},
-  );
+  const [selectedCategory, setSelectedCategory] = useState({
+    categoryId: 1,
+    text:
+      lang === "ko"
+        ? "동네맛집"
+        : lang === "jp"
+        ? "近所グルメ"
+        : "I need help!",
+  });
   const [categoryList, setCategoryList] = useState([
-    { categoryId: 1, text: lang === "ko" ? "동네맛집" : lang=== "jp" ? "近所グルメ" : "I need help!"},
+    {
+      categoryId: 1,
+      text:
+        lang === "ko"
+          ? "동네맛집"
+          : lang === "jp"
+          ? "近所グルメ"
+          : "I need help!",
+    },
   ]);
 
   const formik = useFormik({
@@ -51,7 +66,6 @@ const Writing = () => {
 
       for (let i = 0; i < images.length; i++) {
         formData.append("files[]", images[i]);
-
       }
       for (let value of formData.values()) {
         console.log(value);
@@ -117,9 +131,6 @@ const Writing = () => {
     setImages(files);
   };
 
-
-
-
   return (
     <Box
       sx={{
@@ -142,12 +153,10 @@ const Writing = () => {
           sx={{
             width: "fit-content",
             height: "3.6rem",
-            mb: "1.8rem",
+            mb: "2.5rem",
             "& .css-18dg0t2-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input":
               {
-                pl: 2,
-                pt: 1,
-                pb: 1,
+                padding: "0.947rem 0.8rem 0.853rem",
               },
           }}
           defaultValue={selectedCategory.text}
@@ -178,7 +187,7 @@ const Writing = () => {
           />
         </form>
         <Box
-          sx={{ backgroundColor: "#fafafa", width: "auto", height: "4srem" }}
+          sx={{ backgroundColor: "#fafafa", width: "auto", height: "4rem" }}
           display={"flex"}
           alignItems={"center"}
           justifyContent={"space-between"}
@@ -193,20 +202,31 @@ const Writing = () => {
             hidden
             onChange={(e) => handleImageUpload(e)}
           />
-          <img src={`/images/Group 50886.svg`} alt={"logo"} onClick={onImageUploadButtonClick} sx={{width: "8.6rem",
-            height: "2.4rem", objectFit: "contain"}}/>
+          <img
+            src={`/images/Group 50886.svg`}
+            alt={"logo"}
+            onClick={onImageUploadButtonClick}
+            sx={{ width: "8.6rem", height: "2.4rem", objectFit: "contain" }}
+          />
         </Box>
-        <Box sx={{  display: "fixed", position: "absolute", bottom: 1,  borderRadius: "8px",
-          boxShadow: "0 -20px 10px 0 rgba(0, 0, 0, 0.03)"}}>
+        <Box
+          sx={{
+            display: "fixed",
+            position: "absolute",
+            bottom: 1,
+            borderRadius: "8px",
+            boxShadow: "0 -20px 10px 0 rgba(0, 0, 0, 0.03)",
+          }}
+        >
           <Button
-              sx={
-              {width: "31rem",
-                height:" 4.8rem",
-                margin: 3,
-                borderRadius: "8px",
-                backgroundColor: "#6088f6",
-                fontSize: "1.6rem"
-              }}
+            sx={{
+              width: "85vw",
+              height: " 4.8rem",
+              margin: 3,
+              borderRadius: "8px",
+              backgroundColor: "#6088f6",
+              fontSize: "1.6rem",
+            }}
             type="submit"
             variant="contained"
             size="large"
